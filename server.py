@@ -1,3 +1,12 @@
+'''
+Simple UDP/TCP server appplication with logging feautre.
+
+Bugwright2 Prject
+
+Mina Rady mina.rady@inria.fr
+
+'''
+
 import socket
 import sys
 import time
@@ -17,11 +26,8 @@ EXPERIMENT_ID = "test"
 run_id = "test_run"
 LOG_DIR_NAME = 'logs'
 log_file_path = ''
-
-# epxeriment settings
-
-UDP_IP = "10.90.90.1"
-UDP_PORT = 5005
+CONN = "TCP"
+USAGE = "Usage: server.py <experiment ID> <conn_type(TCP/UDP)>"
 
 def prepare_log_file():
     log_dir_path = os.path.join(os.path.dirname(__file__), LOG_DIR_NAME,run_id)
@@ -83,17 +89,64 @@ def log_data (data):
         }
         f.write('{}\n'.format(json.dumps(log)))
  
+print (USAGE)
 
-EXPERIMENT_ID = sys.argv[1]
+if (len(sys.argv)>2):
+    EXPERIMENT_ID = sys.argv[1]
+    CONN        = sys.argv[2]
+else:
+    exit()
 
 log_file_path = prepare_log_file() 
 
 print (log_file_path)
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
-sock.bind((UDP_IP, UDP_PORT))
-
-
-while True:
-    data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
-    log_data(data)
+if (CONN == "UDP"):
+# epxeriment settings
+    HOST = "10.90.90.1"
+    PORT = 5005
+    print ("UDP Server: %s" % HOST)
+    print ("UDP Port: %s" % PORT)
+    
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
+    sock.bind((HOST, PORT))
+    while True:
+        data, addr = sock.recvfrom(65500) 
+        log_data(data)
+        
+if (CONN == "TCP"):
+    HOST = None               # Symbolic name meaning all available interfaces
+    PORT = 50007              # Arbitrary non-privileged port
+    
+    print ("TCP Server: All Ifs")
+    print ("TCP Port  : %s" % PORT)
+    
+    s = None
+    for res in socket.getaddrinfo(HOST, PORT, socket.AF_UNSPEC,
+                                  socket.SOCK_STREAM, 0, socket.AI_PASSIVE):
+        af, socktype, proto, canonname, sa = res
+        try:
+            s = socket.socket(af, socktype, proto)
+        except OSError as msg:
+            s = None
+            continue
+        try:
+            s.bind(sa)
+            s.listen(1)
+        except OSError as msg:
+            s.close()
+            s = None
+            continue
+        break
+    if s is None:
+        print('could not open socket')
+        sys.exit(1)
+    conn, addr = s.accept()
+    with conn:
+        print('Connected by', addr)
+        while True:
+            data = conn.recv(65500)
+            if (getsizeof(data)>100):
+                log_data(data)
+            # if not data: break
+            # conn.send(data)
