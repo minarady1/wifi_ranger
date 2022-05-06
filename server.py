@@ -65,12 +65,22 @@ def prepare_log_file():
 def process_payload(data):
     timestamp_ns    = int.from_bytes(data [0:80], "big")
     seqnum          = int.from_bytes(data [80:160] , "big")
+    packet_size	    = int.from_bytes(data [160:170] , "big")
+    freq	    = int.from_bytes(data [170:180] , "big")
+    conn	    = data [180:183].decode("utf-8")
+    netinfo	    = data [183:183+5000].decode("utf-8")
+ 
     frame_len       = getsizeof(data) 
     print(seqnum)
     res = {
         "src_timestamp_ns"  : timestamp_ns,
         "seqnum"            : seqnum,
-        "frame_len"         : frame_len
+        "netinfo"	    : netinfo,
+        "packet_size"       : packet_size,
+        "freq"	            : freq,
+        "conn" 		    : conn,
+        "frame_len"         : frame_len,
+        
     }
     # print (timestamp_ns,seqnum,frame_len, (time.time_ns()-timestamp_ns)/1000)
     return res
@@ -103,7 +113,7 @@ print (log_file_path)
 
 if (CONN == "UDP"):
 # epxeriment settings
-    HOST = "10.90.90.1"
+    HOST = "10.90.90.2"
     PORT = 5005
     print ("UDP Server: %s" % HOST)
     print ("UDP Port: %s" % PORT)
@@ -122,6 +132,7 @@ if (CONN == "TCP"):
     print ("TCP Port  : %s" % PORT)
     
     s = None
+    pdb.set_trace()
     for res in socket.getaddrinfo(HOST, PORT, socket.AF_UNSPEC,
                                   socket.SOCK_STREAM, 0, socket.AI_PASSIVE):
         af, socktype, proto, canonname, sa = res
