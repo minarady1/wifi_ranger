@@ -69,9 +69,9 @@ def process_payload(data):
     freq	    = int.from_bytes(data [170:180] , "big")
     conn	    = data [180:183].decode("utf-8")
     netinfo	    = data [183:183+5000].decode("utf-8")
- 
+    
     frame_len       = getsizeof(data) 
-    print(seqnum)
+    print(seqnum,frame_len)
     res = {
         "src_timestamp_ns"  : timestamp_ns,
         "seqnum"            : seqnum,
@@ -89,13 +89,13 @@ def log_data (data):
     global log_file_path
     ts = datetime.datetime.now()
     #pdb.set_trace()
-    paylod_js = process_payload(data)
+    payload_js = process_payload(data)
     with open(log_file_path, 'a') as f:
         log = {
             'name': EXPERIMENT_ID,
             'datetime': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'timestamp': time.time_ns(),
-            'payload'  : paylod_js
+            'payload'  : payload_js
         }
         f.write('{}\n'.format(json.dumps(log)))
  
@@ -125,39 +125,24 @@ if (CONN == "UDP"):
         log_data(data)
         
 if (CONN == "TCP"):
-    HOST = None               # Symbolic name meaning all available interfaces
+    HOST = ''               # Symbolic name meaning all available interfaces
     PORT = 50007              # Arbitrary non-privileged port
-    
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print ("TCP Server: All Ifs")
     print ("TCP Port  : %s" % PORT)
-    
-    s = None
-    #pdb.set_trace()
-    for res in socket.getaddrinfo(HOST, PORT, socket.AF_UNSPEC,
-                                  socket.SOCK_STREAM, 0, socket.AI_PASSIVE):
-        af, socktype, proto, canonname, sa = res
-        try:
-            s = socket.socket(af, socktype, proto)
-        except OSError as msg:
-            s = None
-            continue
-        try:
-            s.bind(sa)
-            s.listen(1)
-        except OSError as msg:
-            s.close()
-            s = None
-            continue
-        break
-    if s is None:
-        print('could not open socket')
-        sys.exit(1)
-    conn, addr = s.accept()
-    with conn:
-        print('Connected by', addr)
+    s.bind((HOST, PORT))
+    s.listen()
+    connection, client_address = s.accept()
+    print ('Got connection from', client_address )
+    s.setblocking(0)
+    try:	
         while True:
-            data = conn.recv(65500)
-            if (getsizeof(data)>100):
-                log_data(data)
-            # if not data: break
-            # conn.send(data)
+            # Establish connection with client.
+            data = connection.recv(12000)
+            log_data(data)
+            if (getsizeof(data)<2000):
+               pdb.set_trace()
+                
+    finally:
+        connection.close()
+    
