@@ -113,7 +113,7 @@ print (log_file_path)
 
 if (CONN == "UDP"):
 # epxeriment settings
-    HOST = "10.90.90.2"
+    HOST = "10.90.90.1"
     PORT = 5005
     print ("UDP Server: %s" % HOST)
     print ("UDP Port: %s" % PORT)
@@ -132,7 +132,7 @@ if (CONN == "TCP"):
     print ("TCP Port  : %s" % PORT)
     
     s = None
-    pdb.set_trace()
+    #pdb.set_trace()
     for res in socket.getaddrinfo(HOST, PORT, socket.AF_UNSPEC,
                                   socket.SOCK_STREAM, 0, socket.AI_PASSIVE):
         af, socktype, proto, canonname, sa = res
