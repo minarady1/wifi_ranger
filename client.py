@@ -16,13 +16,14 @@ from sys import getsizeof
 import pdb
 import sys
 import os
+import logging
 
 
 CONN=  "TCP"
 PACKET_SIZE = 1000000   # B 
 FREQ        = 0.1   # s
 seqnum      = 0
-DURATION     = 5 # s
+DURATION     = 60*3 # s
 USAGE = "Usage: client.py <period (s)> <connection type(TCP/UDP)> <packet size (B)>"
 
 def preparePacket():
@@ -49,11 +50,11 @@ def preparePacket():
 
     padding = bytearray([1]*(PACKET_SIZE- getsizeof (header)))
     
-    print ("#", timestamp,seqnum ,getsizeof (header) )
     
     # append all in one bye array
     payload = header+ padding
     
+    print ("#", timestamp,seqnum ,getsizeof (header), len (payload) )
     seqnum = seqnum+1
     return payload
 
@@ -63,8 +64,6 @@ def send_udp(payload):
                          socket.SOCK_DGRAM) # UDP
     sock.sendto(payload, (UDP_IP, UDP_PORT))
 
-def send_tcp(payload):
-    s.sendall(payload)
 
 def get_network_info():
     stream = os.popen("netsh wlan show interfaces")
@@ -104,7 +103,7 @@ else:
 starttime = time.time()
 
 if (CONN == "UDP"):
-    UDP_IP      = "10.90.90.2"
+    UDP_IP      = "10.90.90.1"
     UDP_PORT    = 5005
     print ("UDP target IP: %s" % UDP_IP)
     print ("UDP target port: %s" % UDP_PORT)
@@ -118,32 +117,21 @@ if (CONN == "UDP"):
         now = time.time()
 
 if (CONN == "TCP"):
-    HOST = '10.90.90.2'
+    HOST = '10.90.90.1'
     PORT = 50007
     print ("TCP Host: %s" % HOST)
     print ("TCP port: %s" % PORT)
-    
-    s = None
-    for res in socket.getaddrinfo(HOST, PORT, socket.AF_UNSPEC, socket.SOCK_STREAM):
-        af, socktype, proto, canonname, sa = res
-        try:
-            s = socket.socket(af, socktype, proto)
-        except OSError as msg:
-            s = None
-            continue
-        try:
-            s.connect(sa)
-        except OSError as msg:
-            s.close()
-            s = None
-            continue
-        break
-    if s is None:
-        print('could not open socket')
-        sys.exit(1)
-    with s:
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((HOST, PORT))
+    try:
         starttime = time.time()
-        while True:
+        period = 1/FREQ
+        start = time.time()
+        now = start
+        while (now-start< DURATION):
             payload = preparePacket()
-            send_tcp(payload)
-            time.sleep(1 - ((time.time() - starttime) % 1))
+            s.sendall(payload)
+            time.sleep(period - ((time.time() - starttime) % period))
+            now = time.time()
+    finally:
+        s.close()
