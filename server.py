@@ -75,10 +75,10 @@ def process_payload(data):
     res = {
         "src_timestamp_ns"  : timestamp_ns,
         "seqnum"            : seqnum,
-        "netinfo"	    : netinfo,
+        "netinfo"	        : netinfo,
         "packet_size"       : packet_size,
         "freq"	            : freq,
-        "conn" 		    : conn,
+        "conn" 		        : conn,
         "frame_len"         : frame_len,
         
     }

@@ -23,8 +23,8 @@ CONN=  "TCP"
 PACKET_SIZE = 1000000   # B 
 FREQ        = 0.1   # s
 seqnum      = 0
-DURATION     = 60*3 # s
-USAGE = "Usage: client.py <period (s)> <connection type(TCP/UDP)> <packet size (B)>"
+DURATION     = 10 # s
+USAGE = "Usage: client.py <period (s)> <connection type(TCP/UDP)> <packet size (B) <Duration (s)>"
 
 def preparePacket():
     # get time
@@ -69,6 +69,7 @@ def get_network_info():
     stream = os.popen("netsh wlan show interfaces")
     output = stream.read()
     output_b = bytes(output,"utf-8")
+    # print (output)
     print (output)
     len_net_info = getsizeof(output_b)
     if (len_net_info>5000):
@@ -83,7 +84,7 @@ def get_network_info():
 
 def get_exp_info ():
     packet_size = PACKET_SIZE.to_bytes(10,'big')
-    freq        = FREQ.to_bytes(10,'big') 
+    freq        = FREQ.to_bytes(10,'big')
     conn        = CONN.encode("utf-8") # 3 B
     res = packet_size + freq+ conn # total 23 B
     return res
@@ -96,9 +97,11 @@ if (len(sys.argv)>3):
     FREQ        = int(sys.argv[1])
     CONN        = sys.argv[2]
     PACKET_SIZE = int(sys.argv[3])
+    DURATION    = int(sys.argv[4])
 else:
     exit()
 
+print ("Frequency:", FREQ, "PPs, CONN:", CONN, ", P Size:", PACKET_SIZE, " Bytes, Duration: ", DURATION)
 
 starttime = time.time()
 
