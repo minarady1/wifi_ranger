@@ -137,11 +137,11 @@ tcp_throughput_loc5 =[
     ]
 configs5 = ["AX 2.4 GHz\n 20 MHz","AC 5 GHz \n 80 MHz"]
 
-def plotViolin (data, labels, limit,ylabel, tag ):
+def plotViolin (data, labels, xlimit, ylabel, tag , ylimit=None, step = 50):
     # justifying the data
     i =0
     while (i< len(data)):
-        data [i]= data[i][0:limit]
+        data [i]= data[i][0:xlimit]
         i= i+1
     
     # plot:
@@ -157,7 +157,8 @@ def plotViolin (data, labels, limit,ylabel, tag ):
     
     plt.xlabel('Configuration')
     ax.set_xticks(ticks)
-    #ax.set_yticks(np.arange(0,450+1,50))
+    if (ylimit!=None):
+        ax.set_yticks(np.arange(0,ylimit,step))
     ax.set_xticklabels(labels, rotation=45)
     plt.ylabel(ylabel)
     ax.grid(True)
@@ -166,23 +167,42 @@ def plotViolin (data, labels, limit,ylabel, tag ):
     
     plt.show()
 
+configs_annotated = configs.copy()
+configs_annotated [1] =configs_annotated [1]+ " * " 
+plotViolin(tcp_throughput_loc1 , configs_annotated, 119,
+           'TCP Throughput (Mbps)',  "location1_tcp_120s", 451, 50)
+configs_annotated = configs.copy()
+configs_annotated [0] =configs_annotated [0]+ " * " 
+configs_annotated [1] =configs_annotated [1]+ " * " 
+plotViolin(tcp_throughput_loc2, configs_annotated, 119,
+           'TCP Throughput (Mbps)', "location2_tcp_120s", 451, 50)
+plotViolin(tcp_throughput_loc4, configs, 119,
+           'TCP Throughput (Mbps)', "location4_tcp_120s", 451, 50)
+plotViolin(tcp_throughput_loc5, configs5,119,
+           'TCP Throughput (Mbps)', "location5_tcp_120s", 451, 50)
 
-plotViolin(tcp_throughput_loc1 , configs, 119,'TCP Throughput (Mbps)',  "location1_tcp_120s")
-plotViolin(tcp_throughput_loc2, configs, 119,'TCP Throughput (Mbps)', "location2_tcp_120s")
-plotViolin(tcp_throughput_loc4, configs, 119,'TCP Throughput (Mbps)', "location4_tcp_120s")
-plotViolin(tcp_throughput_loc5, configs5,119,'TCP Throughput (Mbps)', "location5_tcp_120s")
+plotViolin([udp_jitter_loc1 [0]]+udp_jitter_loc1 [2:], 
+           [configs[0]]+configs[2:], 119,
+           "Jitter (ms)","location1_udp_jitter_120s", 351)
+plotViolin(udp_jitter_loc2, configs, 119, 
+           "Jitter (ms)", "location2_udp_jitter_120s", 351)
+plotViolin(udp_jitter_loc4, configs, 119,
+           "Jitter (ms)", "location4_udp_jitter_120s",351)
 
-plotViolin([udp_jitter_loc1 [0]]+udp_jitter_loc1 [2:], [configs[0]]+configs[2:], 119,"Jitter (ms)","location1_udp_jitter_120s")
-plotViolin(udp_jitter_loc2, configs, 119, "Jitter (ms)", "location1_udp_jitter_120s")
-plotViolin(udp_jitter_loc4, configs, 119,"Jitter (ms)", "location4_udp_jitter_120s")
+plotViolin([udp_plr_loc1 [0]]+udp_plr_loc1 [2:], [configs[0]]+configs[2:], 119,
+           "PLR","location1_udp_plr_120s",101,20)
+configs_annotated = configs.copy()
+configs_annotated [1] =configs_annotated [1]+ " * " 
+plotViolin(udp_plr_loc2, configs, 119, "PLR", "location2_udp_plr_120s",101,20)
+plotViolin(udp_plr_loc4, configs, 119,"PLR", "location4_udp_plr_120s",101,20)
 
-plotViolin([udp_plr_loc1 [0]]+udp_plr_loc1 [2:], [configs[0]]+configs[2:], 119,"PLR","location1_udp_plr_120s")
-plotViolin(udp_plr_loc2, configs, 119, "PLR", "location1_udp_plr_120s")
-plotViolin(udp_plr_loc4, configs, 119,"PLR", "location4_udp_plr_120s")
-
-plotViolin([udp_throughput_loc1 [0]]+udp_throughput_loc1 [2:], [configs[0]]+configs[2:], 119,"UDP Throughput (Mbps)","location1_udp_throughput_120s")
-plotViolin(udp_throughput_loc2, configs, 119, "UDP Throughput (Mbps)", "location2_udp_throughput_120s")
-plotViolin(udp_throughput_loc4, configs, 119,"UDP Throughput (Mbps)", "location4_udp_throughput_120s")
+plotViolin([udp_throughput_loc1 [0]]+udp_throughput_loc1 [2:], 
+           [configs[0]]+configs[2:], 119,
+           "UDP Throughput (Mbps)","location1_udp_throughput_120s",601, 100)
+plotViolin(udp_throughput_loc2, configs, 119, 
+           "UDP Throughput (Mbps)", "location2_udp_throughput_120s",601, 100)
+plotViolin(udp_throughput_loc4, configs, 119,
+           "UDP Throughput (Mbps)", "location4_udp_throughput_120s",601, 100)
 
 #interference plot
 plotViolin([tcp_throughput_loc1 [0],
@@ -191,12 +211,13 @@ plotViolin([tcp_throughput_loc1 [0],
             tcp_throughput_loc1_interference [1]], 
            [configs [0], 
             loc1_interference_configs[0],
-            configs[1],
+            configs[1] + " * ",
             loc1_interference_configs[1]],
            119,'TCP Throughput (Mbps)',  "location1_tcp_120_interference")
 
 plotViolin([udp_throughput_loc1 [0],
             udp_throughput_loc1_interference [0], 
+            # udp_throughput_loc1 [1], no data available
             udp_throughput_loc1_interference [1]], 
            [configs [0], 
             loc1_interference_configs[0],
