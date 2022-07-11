@@ -21,27 +21,38 @@ configs = [
 json_objects = []
 data=[]
 
-f = open('log1.json',)
-while True:
+files = ["../logs/exp1_run1_control_withtcp.json",
+         "../logs/exp1_run1_control_withudp.json",
+         ]
+for file in files:
+    f = open(file)
     line = f.readline()
+    print (line)
     if line:
         json_objects.append(json.loads(line))
-    else:
-        break
 
 
-result_all = []
+throughput_all = []
+throughput = []
+plr_all = []
 time_all  = []
+time  = []
 
 for exp in json_objects:
-    result = []
     time  = []
+    throughput = []
+    plr = []
     for i in exp['intervals']:
         time.append (i ['sum']['start'])
-        result.append(i ['sum']['bits_per_second'])
+        throughput.append (i ['sum']['bits_per_second'])
+        if "lost_percent" in i ['sum']:
+            plr.append(i ['sum']['lost_percent'])
     time_all.append(time)
-    result_all.append(result)
-
+    throughput_all.append(throughput)
+    
+    if (len(plr)>0):
+        plr_all.append(plr)
+        
 f.close()
 
 def plotViolin (data, labels, xlimit, ylabel, tag , ylimit=None, step = None):
@@ -64,7 +75,7 @@ def plotViolin (data, labels, xlimit, ylabel, tag , ylimit=None, step = None):
     ax.set_xticks(ticks)
     if (ylimit!=None):
         ax.set_yticks(np.arange(0,ylimit,step))
-    ax.set_xticklabels(labels, rotation=45)
+
     plt.ylabel(ylabel)
     ax.grid(True)
     
@@ -89,8 +100,8 @@ def plotTimeseries (data, time, labels, xlimit, ylabel, tag , ylimit=None, step 
     plt.show()
 
 
-plotViolin(result_all, ["UDP default l", "UDP max l" ], 30,  'TCP Throughput (Mbps)',  "location1_tcp_120s")
+plotViolin(throughput_all, ["config1", "configs2"], 15,  'TCP Throughput (Mbps)',  "location1_tcp_120s")
 
 
-plotTimeseries(result_all, time_all, ["my config"], 30,  'TCP Throughput (Mbps)',  "location1_tcp_120s_time")
+plotTimeseries(throughput_all, time_all, ["my config1"], 15,  'TCP Throughput (Mbps)',  "location1_tcp_120s_time")
 

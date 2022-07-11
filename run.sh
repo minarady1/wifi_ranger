@@ -1,8 +1,11 @@
 set -x
-echo "starting RSSI test.."
-python client.py 1 UDP 10000 10      >> $1
-echo "starting iperf tests.."
-iperf3 -c 10.90.90.1 -p 3000   -t 120  >> $1
-iperf3 -c 10.90.90.1 -p 3000   -u -l 65500 -b 1800M -t 120 >> $1
+echo "starting iperf with UDP stream.."
+python iperf.py $1 $2_udpstream "iperf3 -c localhost -p 4000 -t 15 -J -u -l 65500 -b 27M" &
+python iperf.py $1 $2_control_withudp "iperf3 -c localhost -p 3000 -t 15 -u -l 100 -J -R"
+echo "finished.."
+
+echo "starting iperf with UDP stream.."
+python iperf.py $1 $2_tcpstream "iperf3 -c localhost -p 4000 -t 15 -J -b 27M" &
+python iperf.py $1 $2_control_withtcp "iperf3 -c localhost -p 3000 -t 15 -u -l 100 -J -R"
 echo "finished.."
 $SHELL
