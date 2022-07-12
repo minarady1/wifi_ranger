@@ -26,14 +26,15 @@ print (USAGE)
 
 
 LOG_DIR_NAME = 'logs'
-UDP_IP      = sys.argv[1]
-UDP_PORT    = int(sys.argv[2])
-DURATION    = int(sys.argv[3])
-EXPID       = sys.argv[4]
-RUNID       = sys.argv[5]
+EXPID       = sys.argv[1]
+RUNID       = sys.argv[2]
+UDP_IP      = sys.argv[3]
+UDP_PORT    = int(sys.argv[4])
+DURATION    = int(sys.argv[5])
+
 log_file_path = ''
 def prepare_log_file():
-    log_dir_path = os.path.join(os.path.dirname(__file__), LOG_DIR_NAME,RUNID)
+    log_dir_path = os.path.join(os.path.dirname(__file__), LOG_DIR_NAME)
 
     # make sure we have the log directory
     if os.path.isdir(log_dir_path):
