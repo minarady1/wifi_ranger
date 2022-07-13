@@ -10,20 +10,17 @@ import matplotlib.pyplot as plt
 import json
 
 
-configs = [
-    "WiFi-6 2.4 GHz\n 20 MHz",
-    "WiFi-6 5 GHz \n 80 MHz",
-    "WiFi-6 5 GHz \n 20 MHz",
-    "WiFi-5 5 GHz \n 20 MHz", 
-    "WiFi-4 2.4 GHz\n 20 MHz"]
+
 
 # make data:
 json_objects = []
 data=[]
 
-files = ["../logs/exp1_run1_control_withtcp.json",
-         "../logs/exp1_run1_control_withudp.json",
+files = ["../logs/loc1_24GHz_n_run2_tcpstream.json",
+         "../logs/loc1_24GHz_n_run2_udpstream.json",
          ]
+exp_labels = ["TCP Stream", "UDP Stream"]
+
 for file in files:
     f = open(file)
     line = f.readline()
@@ -44,7 +41,7 @@ for exp in json_objects:
     plr = []
     for i in exp['intervals']:
         time.append (i ['sum']['start'])
-        throughput.append (i ['sum']['bits_per_second'])
+        throughput.append (i ['sum']['bits_per_second']/ 10**6)
         if "lost_percent" in i ['sum']:
             plr.append(i ['sum']['lost_percent'])
     time_all.append(time)
@@ -78,7 +75,7 @@ def plotViolin (data, labels, xlimit, ylabel, tag , ylimit=None, step = None):
 
     plt.ylabel(ylabel)
     ax.grid(True)
-    
+    ax.set_xticklabels(labels, rotation=45)
     plt.savefig(tag+".png", dpi=300, bbox_inches='tight')
     
     plt.show()
@@ -90,18 +87,20 @@ def plotTimeseries (data, time, labels, xlimit, ylabel, tag , ylimit=None, step 
     plt.figure(figsize=(12, 8))
     i = 0
     while (i < len(data)):
-        plt.plot(time [0], data [i], linewidth=3)
+        plt.plot(time [0], data [i], linewidth=3, label = labels [i])
         i =i+1
     
     plt.tight_layout()
     plt.ylabel(ylabel)
+    plt.legend()
+    plt.grid(True)
     plt.savefig(tag+".png", dpi=300, bbox_inches='tight')
     
     plt.show()
 
 
-plotViolin(throughput_all, ["config1", "configs2"], 15,  'TCP Throughput (Mbps)',  "location1_tcp_120s")
+plotViolin(throughput_all, exp_labels, 15,  'Throughput (Mbps)',  "location1_tcp_120s")
 
 
-plotTimeseries(throughput_all, time_all, ["my config1"], 15,  'TCP Throughput (Mbps)',  "location1_tcp_120s_time")
+plotTimeseries(throughput_all, time_all, exp_labels, 15,  'Throughput (Mbps)',  "location1_tcp_120s_time")
 
