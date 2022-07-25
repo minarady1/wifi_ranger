@@ -17,8 +17,6 @@ import pdb
 from sys import getsizeof
 import sys
 
-
-
 USAGE = "Usage: udp_rx.py <host IP> <port> <duration (s)> <exp ID> <run ID>"
 print (USAGE)
 
@@ -26,11 +24,11 @@ print (USAGE)
 
 
 LOG_DIR_NAME = 'logs'
-EXPID       = sys.argv[1]
-RUNID       = sys.argv[2]
-UDP_IP      = sys.argv[3]
-UDP_PORT    = int(sys.argv[4])
-DURATION    = int(sys.argv[5])
+EXPID        = sys.argv[1]
+RUNID        = sys.argv[2]
+UDP_IP       = sys.argv[3]
+UDP_PORT     = int(sys.argv[4])
+DURATION     = int(sys.argv[5])
 
 log_file_path = ''
 def prepare_log_file():
@@ -49,15 +47,16 @@ def prepare_log_file():
     # time.strftime('%Y%m%d-%H%M%S')
     # decide a log file name and create it
     
-    log_file_name = 'log_{}_{}-{}.jsonl'.format(EXPID, RUNID, time.strftime('%Y%m%d-%H%M%S'))
+    log_file_name = 'log_{}_{}.jsonl'.format(EXPID, RUNID)
     log_file_path = os.path.join(log_dir_path, log_file_name)
     
     if os.path.exists(log_file_path):
+        os.remove(log_file_path)
         msg = (
-            'Failed to crate a log file.\n' +
+            'Replacing file.\n' +
             'Log file already exits: {}'.format(log_file_path)
         )
-        sys.exit(msg)
+        
     else:
         # create an empty file with the log file name
         try:
@@ -75,7 +74,7 @@ def process_payload(data):
   
     
     frame_len       = getsizeof(data) 
-    print(seqnum,frame_len)
+    print(seqnum,frame_len, "delay", (time.time_ns()-timestamp_ns)/10**9)
     res = {
         "src_timestamp_ns"  : timestamp_ns,
         "seqnum"            : seqnum,
@@ -98,8 +97,7 @@ def log_data (data):
             'payload'  : payload_js
         }
         f.write('{}\n'.format(json.dumps(log)))
- 
-print (USAGE)
+
 
 
 log_file_path = prepare_log_file() 
@@ -115,5 +113,6 @@ while (now-start < DURATION):
     data, addr = sock.recvfrom(65500) 
     log_data(data)
     now = time.time()
+sock.close()
 print ("done, exiting  ...")
 sys.exit()
