@@ -1,15 +1,52 @@
 set -x
-echo "starting iperf with UDP stream.."
-python iperf.py $1 $2_tcpstream "iperf3 -c 10.90.90.1 -p 4000 -t 15 -J -b 27M" &
-# python udp_rx.py $1 $2_control_withtcp 10.90.90.2 6000
-ping 10.90.90.2 -n 15 -w 2000 >> logs/ping_$1_$2_tcpsteram.json
+
+echo "starting full test.."
+echo "starting iperf with TCP UL stream.."
+python script.py $1 $2_tcpstreamsingleUL "iperf3 -c localhost -p 3000 -t "$3" -J -b 1800M" &
+python udp_rx.py $1 $2_control_withTCPUL localhost 6000 $3 &
 echo "finished.."
 
-echo "starting iperf with UDP stream.."
-python iperf.py $1 $2_udpstream "iperf3 -c 10.90.90.1 -p 5000 -t 15 -J -u -l 65500 -b 27M" &
-#python udp_rx.py $1 $2_control_withudp 10.90.90.2 6000 15
-ping 10.90.90.2 -n 15 -w 2000 >> logs/ping_$1_$2_udpstream.json
+wait
+
+echo "starting iperf with TCP UL+DL stream.."
+python script.py $1 $2_tcpstreamUL "iperf3 -c localhost -p 3000 -t "$3" -J -b 1800M" &
+python script.py $1 $2_tcpstreamDL "iperf3 -c localhost -p 3001 -t "$3" -J -b 1800M -R" &
+python udp_rx.py $1 $2_control_withTCPULDL localhost 6000 $3 &
 echo "finished.."
 
+wait
+
+echo "starting iperf with TCP UL+ UDP DL stream.."
+python script.py $1 $2_tcpstreamULUDP "iperf3 -c localhost -p 3000 -t "$3" -J -b 1800M" &
+python script.py $1 $2_tcpstreamUDPDL "iperf3 -c localhost -p 3001 -t "$3" -J -b 1800M -u -l 65500 -R" &
+python udp_rx.py $1 $2_control_withTCPULUDPDL localhost 6000 $3 &
+echo "finished.."
+
+
+wait
+
+echo "starting iperf with UDP UL stream.."
+python script.py $1 $2_udpstreamsingleUL "iperf3 -c localhost -p 3000 -t "$3" -u -l 65500 -J -b 1800M" &
+python udp_rx.py $1 $2_control_withUDPUL localhost 6000 $3 &
+echo "finished.."
+
+
+wait
+
+echo "starting iperf with UDP UL+DL stream.."
+python script.py $1 $2_udpstreamUL "iperf3 -c localhost -p 3000 -t "$3" -u -l 65500 -J -b 1800M" &
+python script.py $1 $2_udpstreamDL "iperf3 -c localhost -p 3001 -t "$3" -u -l 65500 -J -b 1800M -R" &
+python udp_rx.py $1 $2_control_withUDPULDL localhost 6000 $3 &
+echo "finished.."
+
+wait
+
+echo "starting iperf with UDP UL+ TCP DL stream.."
+python script.py $1 $2_udpstream_TCPDL "iperf3 -c localhost -p 3000 -t "$3" -u -l 65500 -J -b 1800M" &
+python script.py $1 $2_udpstream_DLTCP "iperf3 -c localhost -p 3001 -t "$3" -J -b 1800M -R" &
+python udp_rx.py $1 $2_control_withUDPULTCPDL localhost 6000 $3 &
+
+wait
+echo "range test finished.."
 
 $SHELL
