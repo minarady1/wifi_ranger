@@ -1,0 +1,107 @@
+Usage: client.py <period (s)> <connection type(TCP/UDP)> <packet size (B) <Duration (s)>
+Frequency: 1 PPs, CONN: UDP , P Size: 10000  Bytes, Duration:  10
+UDP target IP: 10.90.90.1
+UDP target port: 5005
+# 1652360880829690900 0 5216 9967
+# 1652360881838565200 1 5216 9967
+# 1652360882831589500 2 5216 9967
+# 1652360883839887000 3 5216 9967
+# 1652360884836880900 4 5216 9967
+# 1652360885835232300 5 5216 9967
+# 1652360886844733000 6 5216 9967
+# 1652360887844401900 7 5216 9967
+# 1652360888843085300 8 5216 9967
+# 1652360889837323200 9 5216 9967
+Connecting to host 10.90.90.1, port 3000
+[  4] local 10.90.90.2 port 31247 connected to 10.90.90.1 port 3000
+[ ID] Interval           Transfer     Bandwidth
+[  4]   0.00-1.01   sec  24.6 MBytes   205 Mbits/sec                  
+[  4]   1.01-2.01   sec  27.5 MBytes   230 Mbits/sec                  
+[  4]   2.01-3.01   sec  24.5 MBytes   205 Mbits/sec                  
+[  4]   3.01-4.00   sec  23.8 MBytes   200 Mbits/sec                  
+[  4]   4.00-5.00   sec  13.6 MBytes   114 Mbits/sec                  
+[  4]   5.00-6.00   sec  0.00 Bytes  0.00 bits/sec                  
+[  4]   6.00-7.00   sec  0.00 Bytes  0.00 bits/sec                  
+[  4]   7.00-8.01   sec  0.00 Bytes  0.00 bits/sec                  
+[  4]   8.01-9.01   sec  0.00 Bytes  0.00 bits/sec                  
+[  4]   9.01-10.00  sec  0.00 Bytes  0.00 bits/sec                  
+[  4]  10.00-11.00  sec  0.00 Bytes  0.00 bits/sec                  
+[  4]  11.00-12.01  sec  0.00 Bytes  0.00 bits/sec                  
+[  4]  12.01-13.01  sec  0.00 Bytes  0.00 bits/sec                  
+[  4]  13.01-14.01  sec  0.00 Bytes  0.00 bits/sec                  
+[  4]  14.01-15.02  sec  0.00 Bytes  0.00 bits/sec                  
+[  4]  15.02-16.01  sec  0.00 Bytes  0.00 bits/sec                  
+[  4]  16.01-17.01  sec  0.00 Bytes  0.00 bits/sec                  
+[  4]  17.01-18.01  sec  0.00 Bytes  0.00 bits/sec                  
+iperf3: error - unable to receive control message: Connection reset by peer
+iperf3: error - unable to connect to server: No route to host
+Usage: client.py <period (s)> <connection type(TCP/UDP)> <packet size (B) <Duration (s)>
+Frequency: 1 PPs, CONN: UDP , P Size: 10000  Bytes, Duration:  10
+UDP target IP: 10.90.90.1
+UDP target port: 5005
+# 1652361019031785000 0 5216 9967
+# 1652361020034871600 1 5216 9967
+# 1652361021034537500 2 5216 9967
+# 1652361022043769800 3 5216 9967
+# 1652361023047526900 4 5216 9967
+# 1652361024032151000 5 5216 9967
+# 1652361025035058900 6 5216 9967
+# 1652361026039304600 7 5216 9967
+# 1652361027037601700 8 5216 9967
+# 1652361028036092400 9 5216 9967
+iperf3: error - unable to receive control message: Connection reset by peer
+iperf3: error - unable to receive control message: Connection reset by peer
+Usage: client.py <period (s)> <connection type(TCP/UDP)> <packet size (B) <Duration (s)>
+Frequency: 1 PPs, CONN: UDP , P Size: 10000  Bytes, Duration:  10
+UDP target IP: 10.90.90.1
+UDP target port: 5005
+# 1652361226462314900 0 5216 9967
+# 1652361227471049000 1 5216 9967
+# 1652361228475474800 2 5216 9967
+# 1652361229476952400 3 5216 9967
+# 1652361230463328600 4 5216 9967
+# 1652361231473683700 5 5216 9967
+# 1652361232477486000 6 5216 9967
+# 1652361233464375500 7 5216 9967
+# 1652361234470531200 8 5216 9967
+# 1652361235475401600 9 5216 9967
+Connecting to host 10.90.90.1, port 3000
+[  4] local 10.90.90.2 port 32243 connected to 10.90.90.1 port 3000
+[ ID] Interval           Transfer     Bandwidth
+[  4]   0.00-1.00   sec  28.2 MBytes   236 Mbits/sec                  
+[  4]   1.00-2.00   sec  24.4 MBytes   204 Mbits/sec                  
+[  4]   2.00-3.01   sec  25.2 MBytes   212 Mbits/sec                  
+[  4]   3.01-4.01   sec  28.2 MBytes   237 Mbits/sec                  
+[  4]   4.01-5.00   sec  24.4 MBytes   205 Mbits/sec                  
+[  4]   5.00-6.01   sec  20.1 MBytes   167 Mbits/sec                  
+[  4]   6.01-7.00   sec  4.38 MBytes  37.0 Mbits/sec                  
+[  4]   7.00-8.01   sec  0.00 Bytes  0.00 bits/sec                  
+[  4]   8.01-9.01   sec  0.00 Bytes  0.00 bits/sec                  
+[  4]   9.01-10.01  sec  0.00 Bytes  0.00 bits/sec                  
+[  4]  10.01-11.00  sec  0.00 Bytes  0.00 bits/sec                  
+[  4]  11.00-12.01  sec  0.00 Bytes  0.00 bits/sec                  
+[  4]  12.01-13.02  sec  0.00 Bytes  0.00 bits/sec                  
+[  4]  13.02-14.01  sec  0.00 Bytes  0.00 bits/sec                  
+[  4]  14.01-15.00  sec  0.00 Bytes  0.00 bits/sec                  
+[  4]  15.00-16.02  sec  0.00 Bytes  0.00 bits/sec                  
+[  4]  16.02-17.01  sec  0.00 Bytes  0.00 bits/sec                  
+[  4]  17.01-18.01  sec  0.00 Bytes  0.00 bits/sec                  
+[  4]  18.01-19.01  sec  0.00 Bytes  0.00 bits/sec                  
+iperf3: error - unable to write to stream socket: Connection reset by peer
+iperf3: error - unable to connect to server: No route to host
+Usage: client.py <period (s)> <connection type(TCP/UDP)> <packet size (B) <Duration (s)>
+Frequency: 1 PPs, CONN: UDP , P Size: 10000  Bytes, Duration:  10
+UDP target IP: 10.90.90.1
+UDP target port: 5005
+# 1652361318532746700 0 5216 9967
+# 1652361319532807100 1 5216 9967
+# 1652361320540707200 2 5216 9967
+# 1652361321543730100 3 5216 9967
+# 1652361322541951500 4 5216 9967
+# 1652361323534937800 5 5216 9967
+# 1652361324540330100 6 5216 9967
+# 1652361325542508100 7 5216 9967
+# 1652361326543568500 8 5216 9967
+# 1652361327542806600 9 5216 9967
+iperf3: error - the server is busy running a test. try again later
+iperf3: error - the server is busy running a test. try again later

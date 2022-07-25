@@ -1,0 +1,512 @@
+Usage: client.py <period (s)> <connection type(TCP/UDP)> <packet size (B) <Duration (s)>
+Frequency: 1 PPs, CONN: UDP , P Size: 10000  Bytes, Duration:  10
+UDP target IP: 10.90.90.1
+UDP target port: 5005
+
+There is 1 interface on the system: 
+
+    Name                   : WiFi
+    Description            : Intel(R) Dual Band Wireless-AC 8260
+    GUID                   : 3b512542-7170-4cbd-ba73-285f37aa1c1f
+    Physical address       : 34:f3:9a:38:7b:d8
+    State                  : connected
+    SSID                   : INSA DLINK 2.4GHz
+    BSSID                  : 78:98:e8:f7:c1:d0
+    Network type           : Infrastructure
+    Radio type             : 802.11n
+    Authentication         : WPA2-Personal
+    Cipher                 : CCMP
+    Connection mode        : Profile
+    Channel                : 1
+    Receive rate (Mbps)    : 144.4
+    Transmit rate (Mbps)   : 144.4
+    Signal                 : 95% 
+    Profile                : INSA DLINK 2.4GHz 
+
+    Hosted network status  : Not available
+
+
+# 1652430155851822600 0 5216 9967
+
+There is 1 interface on the system: 
+
+    Name                   : WiFi
+    Description            : Intel(R) Dual Band Wireless-AC 8260
+    GUID                   : 3b512542-7170-4cbd-ba73-285f37aa1c1f
+    Physical address       : 34:f3:9a:38:7b:d8
+    State                  : connected
+    SSID                   : INSA DLINK 2.4GHz
+    BSSID                  : 78:98:e8:f7:c1:d0
+    Network type           : Infrastructure
+    Radio type             : 802.11n
+    Authentication         : WPA2-Personal
+    Cipher                 : CCMP
+    Connection mode        : Profile
+    Channel                : 1
+    Receive rate (Mbps)    : 144.4
+    Transmit rate (Mbps)   : 144.4
+    Signal                 : 95% 
+    Profile                : INSA DLINK 2.4GHz 
+
+    Hosted network status  : Not available
+
+
+# 1652430156857122300 1 5216 9967
+
+There is 1 interface on the system: 
+
+    Name                   : WiFi
+    Description            : Intel(R) Dual Band Wireless-AC 8260
+    GUID                   : 3b512542-7170-4cbd-ba73-285f37aa1c1f
+    Physical address       : 34:f3:9a:38:7b:d8
+    State                  : connected
+    SSID                   : INSA DLINK 2.4GHz
+    BSSID                  : 78:98:e8:f7:c1:d0
+    Network type           : Infrastructure
+    Radio type             : 802.11n
+    Authentication         : WPA2-Personal
+    Cipher                 : CCMP
+    Connection mode        : Profile
+    Channel                : 1
+    Receive rate (Mbps)    : 144.4
+    Transmit rate (Mbps)   : 144.4
+    Signal                 : 95% 
+    Profile                : INSA DLINK 2.4GHz 
+
+    Hosted network status  : Not available
+
+
+# 1652430157862037200 2 5216 9967
+
+There is 1 interface on the system: 
+
+    Name                   : WiFi
+    Description            : Intel(R) Dual Band Wireless-AC 8260
+    GUID                   : 3b512542-7170-4cbd-ba73-285f37aa1c1f
+    Physical address       : 34:f3:9a:38:7b:d8
+    State                  : connected
+    SSID                   : INSA DLINK 2.4GHz
+    BSSID                  : 78:98:e8:f7:c1:d0
+    Network type           : Infrastructure
+    Radio type             : 802.11n
+    Authentication         : WPA2-Personal
+    Cipher                 : CCMP
+    Connection mode        : Profile
+    Channel                : 1
+    Receive rate (Mbps)    : 144.4
+    Transmit rate (Mbps)   : 144.4
+    Signal                 : 95% 
+    Profile                : INSA DLINK 2.4GHz 
+
+    Hosted network status  : Not available
+
+
+# 1652430158858641600 3 5216 9967
+
+There is 1 interface on the system: 
+
+    Name                   : WiFi
+    Description            : Intel(R) Dual Band Wireless-AC 8260
+    GUID                   : 3b512542-7170-4cbd-ba73-285f37aa1c1f
+    Physical address       : 34:f3:9a:38:7b:d8
+    State                  : connected
+    SSID                   : INSA DLINK 2.4GHz
+    BSSID                  : 78:98:e8:f7:c1:d0
+    Network type           : Infrastructure
+    Radio type             : 802.11n
+    Authentication         : WPA2-Personal
+    Cipher                 : CCMP
+    Connection mode        : Profile
+    Channel                : 1
+    Receive rate (Mbps)    : 144.4
+    Transmit rate (Mbps)   : 144.4
+    Signal                 : 95% 
+    Profile                : INSA DLINK 2.4GHz 
+
+    Hosted network status  : Not available
+
+
+# 1652430159854061500 4 5216 9967
+
+There is 1 interface on the system: 
+
+    Name                   : WiFi
+    Description            : Intel(R) Dual Band Wireless-AC 8260
+    GUID                   : 3b512542-7170-4cbd-ba73-285f37aa1c1f
+    Physical address       : 34:f3:9a:38:7b:d8
+    State                  : connected
+    SSID                   : INSA DLINK 2.4GHz
+    BSSID                  : 78:98:e8:f7:c1:d0
+    Network type           : Infrastructure
+    Radio type             : 802.11n
+    Authentication         : WPA2-Personal
+    Cipher                 : CCMP
+    Connection mode        : Profile
+    Channel                : 1
+    Receive rate (Mbps)    : 144.4
+    Transmit rate (Mbps)   : 144.4
+    Signal                 : 95% 
+    Profile                : INSA DLINK 2.4GHz 
+
+    Hosted network status  : Not available
+
+
+# 1652430160862118600 5 5216 9967
+
+There is 1 interface on the system: 
+
+    Name                   : WiFi
+    Description            : Intel(R) Dual Band Wireless-AC 8260
+    GUID                   : 3b512542-7170-4cbd-ba73-285f37aa1c1f
+    Physical address       : 34:f3:9a:38:7b:d8
+    State                  : connected
+    SSID                   : INSA DLINK 2.4GHz
+    BSSID                  : 78:98:e8:f7:c1:d0
+    Network type           : Infrastructure
+    Radio type             : 802.11n
+    Authentication         : WPA2-Personal
+    Cipher                 : CCMP
+    Connection mode        : Profile
+    Channel                : 1
+    Receive rate (Mbps)    : 144.4
+    Transmit rate (Mbps)   : 144.4
+    Signal                 : 95% 
+    Profile                : INSA DLINK 2.4GHz 
+
+    Hosted network status  : Not available
+
+
+# 1652430161853554000 6 5216 9967
+
+There is 1 interface on the system: 
+
+    Name                   : WiFi
+    Description            : Intel(R) Dual Band Wireless-AC 8260
+    GUID                   : 3b512542-7170-4cbd-ba73-285f37aa1c1f
+    Physical address       : 34:f3:9a:38:7b:d8
+    State                  : connected
+    SSID                   : INSA DLINK 2.4GHz
+    BSSID                  : 78:98:e8:f7:c1:d0
+    Network type           : Infrastructure
+    Radio type             : 802.11n
+    Authentication         : WPA2-Personal
+    Cipher                 : CCMP
+    Connection mode        : Profile
+    Channel                : 1
+    Receive rate (Mbps)    : 144.4
+    Transmit rate (Mbps)   : 144.4
+    Signal                 : 95% 
+    Profile                : INSA DLINK 2.4GHz 
+
+    Hosted network status  : Not available
+
+
+# 1652430162857646000 7 5216 9967
+
+There is 1 interface on the system: 
+
+    Name                   : WiFi
+    Description            : Intel(R) Dual Band Wireless-AC 8260
+    GUID                   : 3b512542-7170-4cbd-ba73-285f37aa1c1f
+    Physical address       : 34:f3:9a:38:7b:d8
+    State                  : connected
+    SSID                   : INSA DLINK 2.4GHz
+    BSSID                  : 78:98:e8:f7:c1:d0
+    Network type           : Infrastructure
+    Radio type             : 802.11n
+    Authentication         : WPA2-Personal
+    Cipher                 : CCMP
+    Connection mode        : Profile
+    Channel                : 1
+    Receive rate (Mbps)    : 144.4
+    Transmit rate (Mbps)   : 144.4
+    Signal                 : 95% 
+    Profile                : INSA DLINK 2.4GHz 
+
+    Hosted network status  : Not available
+
+
+# 1652430163861732400 8 5216 9967
+
+There is 1 interface on the system: 
+
+    Name                   : WiFi
+    Description            : Intel(R) Dual Band Wireless-AC 8260
+    GUID                   : 3b512542-7170-4cbd-ba73-285f37aa1c1f
+    Physical address       : 34:f3:9a:38:7b:d8
+    State                  : connected
+    SSID                   : INSA DLINK 2.4GHz
+    BSSID                  : 78:98:e8:f7:c1:d0
+    Network type           : Infrastructure
+    Radio type             : 802.11n
+    Authentication         : WPA2-Personal
+    Cipher                 : CCMP
+    Connection mode        : Profile
+    Channel                : 1
+    Receive rate (Mbps)    : 144.4
+    Transmit rate (Mbps)   : 144.4
+    Signal                 : 95% 
+    Profile                : INSA DLINK 2.4GHz 
+
+    Hosted network status  : Not available
+
+
+# 1652430164861705400 9 5216 9967
+Connecting to host 10.90.90.1, port 3000
+[  4] local 10.90.90.2 port 29821 connected to 10.90.90.1 port 3000
+[ ID] Interval           Transfer     Bandwidth
+[  4]   0.00-1.00   sec  8.88 MBytes  74.4 Mbits/sec                  
+[  4]   1.00-2.00   sec  10.4 MBytes  86.7 Mbits/sec                  
+[  4]   2.00-3.00   sec  11.9 MBytes  99.6 Mbits/sec                  
+[  4]   3.00-4.00   sec  12.2 MBytes   103 Mbits/sec                  
+[  4]   4.00-5.01   sec  12.0 MBytes   100 Mbits/sec                  
+[  4]   5.01-6.00   sec  12.1 MBytes   102 Mbits/sec                  
+[  4]   6.00-7.00   sec  11.9 MBytes  99.7 Mbits/sec                  
+[  4]   7.00-8.01   sec  11.9 MBytes  99.0 Mbits/sec                  
+[  4]   8.01-9.01   sec  12.5 MBytes   105 Mbits/sec                  
+[  4]   9.01-10.00  sec  12.0 MBytes   101 Mbits/sec                  
+[  4]  10.00-11.00  sec  12.4 MBytes   104 Mbits/sec                  
+[  4]  11.00-12.01  sec  12.0 MBytes   100 Mbits/sec                  
+[  4]  12.01-13.01  sec  12.4 MBytes   104 Mbits/sec                  
+[  4]  13.01-14.01  sec  12.1 MBytes   102 Mbits/sec                  
+[  4]  14.01-15.01  sec  12.2 MBytes   103 Mbits/sec                  
+[  4]  15.01-16.01  sec  12.1 MBytes   102 Mbits/sec                  
+[  4]  16.01-17.01  sec  11.4 MBytes  95.3 Mbits/sec                  
+[  4]  17.01-18.01  sec  12.6 MBytes   105 Mbits/sec                  
+[  4]  18.01-19.00  sec  11.8 MBytes  99.3 Mbits/sec                  
+[  4]  19.00-20.01  sec  12.4 MBytes   103 Mbits/sec                  
+[  4]  20.01-21.01  sec  12.1 MBytes   102 Mbits/sec                  
+[  4]  21.01-22.01  sec  11.9 MBytes  99.6 Mbits/sec                  
+[  4]  22.01-23.01  sec  11.4 MBytes  95.2 Mbits/sec                  
+[  4]  23.01-24.00  sec  11.9 MBytes   101 Mbits/sec                  
+[  4]  24.00-25.01  sec  12.0 MBytes   100 Mbits/sec                  
+[  4]  25.01-26.00  sec  10.6 MBytes  89.7 Mbits/sec                  
+[  4]  26.00-27.00  sec  12.2 MBytes   103 Mbits/sec                  
+[  4]  27.00-28.00  sec  12.1 MBytes   101 Mbits/sec                  
+[  4]  28.00-29.00  sec  12.6 MBytes   106 Mbits/sec                  
+[  4]  29.00-30.01  sec  12.0 MBytes   101 Mbits/sec                  
+[  4]  30.01-31.01  sec  12.1 MBytes   102 Mbits/sec                  
+[  4]  31.01-32.01  sec  11.8 MBytes  98.1 Mbits/sec                  
+[  4]  32.01-33.01  sec  12.0 MBytes   101 Mbits/sec                  
+[  4]  33.01-34.00  sec  12.0 MBytes   101 Mbits/sec                  
+[  4]  34.00-35.01  sec  11.6 MBytes  97.3 Mbits/sec                  
+[  4]  35.01-36.01  sec  11.8 MBytes  98.1 Mbits/sec                  
+[  4]  36.01-37.00  sec  11.5 MBytes  97.5 Mbits/sec                  
+[  4]  37.00-38.00  sec  11.8 MBytes  98.4 Mbits/sec                  
+[  4]  38.00-39.01  sec  11.5 MBytes  95.9 Mbits/sec                  
+[  4]  39.01-40.01  sec  11.6 MBytes  97.7 Mbits/sec                  
+[  4]  40.01-41.01  sec  12.5 MBytes   104 Mbits/sec                  
+[  4]  41.01-42.01  sec  11.8 MBytes  99.1 Mbits/sec                  
+[  4]  42.01-43.00  sec  12.0 MBytes   101 Mbits/sec                  
+[  4]  43.00-44.01  sec  11.1 MBytes  92.8 Mbits/sec                  
+[  4]  44.01-45.00  sec  12.1 MBytes   102 Mbits/sec                  
+[  4]  45.00-46.00  sec  11.9 MBytes  99.4 Mbits/sec                  
+[  4]  46.00-47.01  sec  11.1 MBytes  92.5 Mbits/sec                  
+[  4]  47.01-48.01  sec  12.1 MBytes   102 Mbits/sec                  
+[  4]  48.01-49.01  sec  10.8 MBytes  90.0 Mbits/sec                  
+[  4]  49.01-50.01  sec  11.8 MBytes  98.9 Mbits/sec                  
+[  4]  50.01-51.00  sec  11.8 MBytes  98.9 Mbits/sec                  
+[  4]  51.00-52.01  sec  11.2 MBytes  94.1 Mbits/sec                  
+[  4]  52.01-53.00  sec  10.9 MBytes  91.4 Mbits/sec                  
+[  4]  53.00-54.01  sec  10.9 MBytes  90.8 Mbits/sec                  
+[  4]  54.01-55.00  sec  12.0 MBytes   101 Mbits/sec                  
+[  4]  55.00-56.00  sec  10.6 MBytes  89.4 Mbits/sec                  
+[  4]  56.00-57.00  sec  11.2 MBytes  94.3 Mbits/sec                  
+[  4]  57.00-58.00  sec  11.1 MBytes  93.1 Mbits/sec                  
+[  4]  58.00-59.01  sec  11.6 MBytes  97.3 Mbits/sec                  
+[  4]  59.01-60.01  sec  11.6 MBytes  97.1 Mbits/sec                  
+[  4]  60.01-61.00  sec  11.4 MBytes  96.3 Mbits/sec                  
+[  4]  61.00-62.01  sec  11.5 MBytes  95.4 Mbits/sec                  
+[  4]  62.01-63.00  sec  11.5 MBytes  97.2 Mbits/sec                  
+[  4]  63.00-64.02  sec  11.8 MBytes  97.2 Mbits/sec                  
+[  4]  64.02-65.00  sec  11.2 MBytes  95.7 Mbits/sec                  
+[  4]  65.00-66.01  sec  11.6 MBytes  97.1 Mbits/sec                  
+[  4]  66.01-67.00  sec  11.6 MBytes  98.1 Mbits/sec                  
+[  4]  67.00-68.00  sec  11.6 MBytes  97.2 Mbits/sec                  
+[  4]  68.00-69.00  sec  10.8 MBytes  90.5 Mbits/sec                  
+[  4]  69.00-70.01  sec  10.8 MBytes  89.8 Mbits/sec                  
+[  4]  70.01-71.00  sec  11.1 MBytes  93.7 Mbits/sec                  
+[  4]  71.00-72.00  sec  10.5 MBytes  88.1 Mbits/sec                  
+[  4]  72.00-73.00  sec  12.1 MBytes   102 Mbits/sec                  
+[  4]  73.00-74.01  sec  11.6 MBytes  97.0 Mbits/sec                  
+[  4]  74.01-75.00  sec  12.0 MBytes   101 Mbits/sec                  
+[  4]  75.00-76.01  sec  10.9 MBytes  90.7 Mbits/sec                  
+[  4]  76.01-77.00  sec  11.1 MBytes  93.7 Mbits/sec                  
+[  4]  77.00-78.00  sec  11.8 MBytes  98.7 Mbits/sec                  
+[  4]  78.00-79.00  sec  11.9 MBytes  99.4 Mbits/sec                  
+[  4]  79.00-80.00  sec  11.1 MBytes  93.5 Mbits/sec                  
+[  4]  80.00-81.00  sec  12.4 MBytes   104 Mbits/sec                  
+[  4]  81.00-82.00  sec  11.0 MBytes  92.2 Mbits/sec                  
+[  4]  82.00-83.00  sec  11.2 MBytes  94.6 Mbits/sec                  
+[  4]  83.00-84.00  sec  11.5 MBytes  96.3 Mbits/sec                  
+[  4]  84.00-85.00  sec  11.6 MBytes  97.5 Mbits/sec                  
+[  4]  85.00-86.01  sec  12.1 MBytes   101 Mbits/sec                  
+[  4]  86.01-87.00  sec  12.1 MBytes   103 Mbits/sec                  
+[  4]  87.00-88.00  sec  12.5 MBytes   105 Mbits/sec                  
+[  4]  88.00-89.00  sec  11.9 MBytes  99.4 Mbits/sec                  
+[  4]  89.00-90.00  sec  10.9 MBytes  91.4 Mbits/sec                  
+[  4]  90.00-91.00  sec  12.1 MBytes   101 Mbits/sec                  
+[  4]  91.00-92.00  sec  11.0 MBytes  92.4 Mbits/sec                  
+[  4]  92.00-93.01  sec  10.1 MBytes  83.9 Mbits/sec                  
+[  4]  93.01-94.00  sec  9.88 MBytes  84.0 Mbits/sec                  
+[  4]  94.00-95.01  sec  9.38 MBytes  78.2 Mbits/sec                  
+[  4]  95.01-96.00  sec  10.6 MBytes  89.5 Mbits/sec                  
+[  4]  96.00-97.00  sec  9.88 MBytes  82.8 Mbits/sec                  
+[  4]  97.00-98.01  sec  9.50 MBytes  79.1 Mbits/sec                  
+[  4]  98.01-99.01  sec  9.88 MBytes  83.1 Mbits/sec                  
+[  4]  99.01-100.00 sec  10.2 MBytes  86.6 Mbits/sec                  
+[  4] 100.00-101.02 sec  9.88 MBytes  81.5 Mbits/sec                  
+[  4] 101.02-102.01 sec  10.2 MBytes  86.5 Mbits/sec                  
+[  4] 102.01-103.01 sec  10.1 MBytes  85.1 Mbits/sec                  
+[  4] 103.01-104.01 sec  7.50 MBytes  63.0 Mbits/sec                  
+[  4] 104.01-105.01 sec  7.62 MBytes  63.9 Mbits/sec                  
+[  4] 105.01-106.01 sec  6.38 MBytes  53.5 Mbits/sec                  
+[  4] 106.01-107.00 sec  7.12 MBytes  60.3 Mbits/sec                  
+[  4] 107.00-108.00 sec  6.88 MBytes  57.6 Mbits/sec                  
+[  4] 108.00-109.01 sec  8.25 MBytes  68.6 Mbits/sec                  
+[  4] 109.01-110.00 sec  10.5 MBytes  88.7 Mbits/sec                  
+[  4] 110.00-111.00 sec  10.0 MBytes  84.1 Mbits/sec                  
+[  4] 111.00-112.00 sec  10.5 MBytes  88.0 Mbits/sec                  
+[  4] 112.00-113.01 sec  10.1 MBytes  84.0 Mbits/sec                  
+[  4] 113.01-114.01 sec  10.4 MBytes  87.4 Mbits/sec                  
+[  4] 114.01-115.00 sec  9.62 MBytes  81.4 Mbits/sec                  
+[  4] 115.00-116.00 sec  8.50 MBytes  71.1 Mbits/sec                  
+[  4] 116.00-117.01 sec  9.38 MBytes  77.9 Mbits/sec                  
+[  4] 117.01-118.00 sec  7.75 MBytes  65.7 Mbits/sec                  
+[  4] 118.00-119.00 sec  7.75 MBytes  65.2 Mbits/sec                  
+[  4] 119.00-120.03 sec  8.38 MBytes  68.2 Mbits/sec                  
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bandwidth
+[  4]   0.00-120.03 sec  1.30 GBytes  92.8 Mbits/sec                  sender
+[  4]   0.00-120.03 sec  1.30 GBytes  92.8 Mbits/sec                  receiver
+
+iperf Done.
+Connecting to host 10.90.90.1, port 3000
+[  4] local 10.90.90.2 port 57850 connected to 10.90.90.1 port 3000
+[ ID] Interval           Transfer     Bandwidth       Total Datagrams
+[  4]   0.00-1.00   sec  10.2 MBytes  85.0 Mbits/sec  163  
+[  4]   1.00-2.00   sec  10.6 MBytes  89.1 Mbits/sec  170  
+[  4]   2.00-3.00   sec  11.9 MBytes  99.6 Mbits/sec  190  
+[  4]   3.00-4.01   sec  12.5 MBytes   105 Mbits/sec  200  
+[  4]   4.01-5.01   sec  12.5 MBytes   105 Mbits/sec  200  
+[  4]   5.01-6.00   sec  11.8 MBytes  99.6 Mbits/sec  189  
+[  4]   6.00-7.00   sec  12.2 MBytes   102 Mbits/sec  196  
+[  4]   7.00-8.00   sec  11.9 MBytes  99.7 Mbits/sec  190  
+[  4]   8.00-9.00   sec  11.6 MBytes  97.0 Mbits/sec  185  
+[  4]   9.00-10.00  sec  12.1 MBytes   101 Mbits/sec  193  
+[  4]  10.00-11.00  sec  12.4 MBytes   104 Mbits/sec  198  
+[  4]  11.00-12.00  sec  12.8 MBytes   107 Mbits/sec  205  
+[  4]  12.00-13.00  sec  13.5 MBytes   113 Mbits/sec  216  
+[  4]  13.00-14.00  sec  13.1 MBytes   110 Mbits/sec  210  
+[  4]  14.00-15.00  sec  12.9 MBytes   108 Mbits/sec  207  
+[  4]  15.00-16.00  sec  13.6 MBytes   114 Mbits/sec  217  
+[  4]  16.00-17.00  sec  13.4 MBytes   112 Mbits/sec  214  
+[  4]  17.00-18.00  sec  13.9 MBytes   116 Mbits/sec  222  
+[  4]  18.00-19.00  sec  13.9 MBytes   116 Mbits/sec  222  
+[  4]  19.00-20.00  sec  13.9 MBytes   117 Mbits/sec  222  
+[  4]  20.00-21.00  sec  13.5 MBytes   113 Mbits/sec  216  
+[  4]  21.00-22.00  sec  13.8 MBytes   116 Mbits/sec  221  
+[  4]  22.00-23.00  sec  13.7 MBytes   115 Mbits/sec  219  
+[  4]  23.00-24.00  sec  13.5 MBytes   113 Mbits/sec  216  
+[  4]  24.00-25.01  sec  13.1 MBytes   109 Mbits/sec  209  
+[  4]  25.01-26.00  sec  13.3 MBytes   112 Mbits/sec  213  
+[  4]  26.00-27.00  sec  14.0 MBytes   117 Mbits/sec  224  
+[  4]  27.00-28.00  sec  13.1 MBytes   110 Mbits/sec  209  
+[  4]  28.00-29.00  sec  10.9 MBytes  91.7 Mbits/sec  175  
+[  4]  29.00-30.01  sec  9.74 MBytes  81.0 Mbits/sec  156  
+[  4]  30.01-31.00  sec  4.87 MBytes  41.1 Mbits/sec  78  
+[  4]  31.00-32.00  sec  6.06 MBytes  51.0 Mbits/sec  97  
+[  4]  32.00-33.00  sec  11.6 MBytes  96.7 Mbits/sec  185  
+[  4]  33.00-34.00  sec  13.9 MBytes   117 Mbits/sec  223  
+[  4]  34.00-35.00  sec  13.6 MBytes   114 Mbits/sec  217  
+[  4]  35.00-36.00  sec  12.9 MBytes   108 Mbits/sec  207  
+[  4]  36.00-37.00  sec  13.9 MBytes   117 Mbits/sec  222  
+[  4]  37.00-38.00  sec  13.7 MBytes   115 Mbits/sec  220  
+[  4]  38.00-39.00  sec  13.6 MBytes   114 Mbits/sec  218  
+[  4]  39.00-40.00  sec  14.0 MBytes   118 Mbits/sec  224  
+[  4]  40.00-41.01  sec  13.7 MBytes   115 Mbits/sec  220  
+[  4]  41.01-42.00  sec  14.1 MBytes   118 Mbits/sec  225  
+[  4]  42.00-43.00  sec  14.1 MBytes   118 Mbits/sec  225  
+[  4]  43.00-44.00  sec  13.4 MBytes   113 Mbits/sec  215  
+[  4]  44.00-45.00  sec  14.0 MBytes   117 Mbits/sec  224  
+[  4]  45.00-46.00  sec  13.9 MBytes   117 Mbits/sec  223  
+[  4]  46.00-47.00  sec  12.7 MBytes   106 Mbits/sec  203  
+[  4]  47.00-48.00  sec  13.8 MBytes   116 Mbits/sec  221  
+[  4]  48.00-49.00  sec  13.9 MBytes   116 Mbits/sec  222  
+[  4]  49.00-50.01  sec  13.9 MBytes   116 Mbits/sec  222  
+[  4]  50.01-51.00  sec  13.6 MBytes   115 Mbits/sec  218  
+[  4]  51.00-52.00  sec  13.9 MBytes   117 Mbits/sec  223  
+[  4]  52.00-53.00  sec  13.4 MBytes   112 Mbits/sec  214  
+[  4]  53.00-54.00  sec  13.7 MBytes   116 Mbits/sec  220  
+[  4]  54.00-55.01  sec  12.6 MBytes   105 Mbits/sec  202  
+[  4]  55.01-56.00  sec  13.4 MBytes   113 Mbits/sec  214  
+[  4]  56.00-57.00  sec  12.1 MBytes   102 Mbits/sec  194  
+[  4]  57.00-58.00  sec  13.8 MBytes   116 Mbits/sec  221  
+[  4]  58.00-59.00  sec  14.2 MBytes   119 Mbits/sec  227  
+[  4]  59.00-60.00  sec  14.2 MBytes   119 Mbits/sec  228  
+[  4]  60.00-61.00  sec  13.7 MBytes   115 Mbits/sec  220  
+[  4]  61.00-62.00  sec  13.9 MBytes   117 Mbits/sec  223  
+[  4]  62.00-63.01  sec  13.7 MBytes   114 Mbits/sec  219  
+[  4]  63.01-64.00  sec  13.6 MBytes   115 Mbits/sec  217  
+[  4]  64.00-65.00  sec  13.6 MBytes   114 Mbits/sec  217  
+[  4]  65.00-66.01  sec  14.2 MBytes   119 Mbits/sec  228  
+[  4]  66.01-67.00  sec  13.6 MBytes   115 Mbits/sec  218  
+[  4]  67.00-68.00  sec  14.1 MBytes   118 Mbits/sec  225  
+[  4]  68.00-69.00  sec  13.9 MBytes   117 Mbits/sec  222  
+[  4]  69.00-70.00  sec  14.2 MBytes   119 Mbits/sec  227  
+[  4]  70.00-71.00  sec  13.6 MBytes   114 Mbits/sec  217  
+[  4]  71.00-72.00  sec  12.6 MBytes   105 Mbits/sec  201  
+[  4]  72.00-73.00  sec  13.7 MBytes   115 Mbits/sec  220  
+[  4]  73.00-74.00  sec  13.7 MBytes   115 Mbits/sec  220  
+[  4]  74.00-75.00  sec  13.9 MBytes   117 Mbits/sec  223  
+[  4]  75.00-76.00  sec  13.6 MBytes   114 Mbits/sec  217  
+[  4]  76.00-77.00  sec  13.3 MBytes   112 Mbits/sec  213  
+[  4]  77.00-78.00  sec  14.3 MBytes   120 Mbits/sec  229  
+[  4]  78.00-79.00  sec  14.0 MBytes   117 Mbits/sec  224  
+[  4]  79.00-80.00  sec  13.7 MBytes   115 Mbits/sec  219  
+[  4]  80.00-81.00  sec  13.5 MBytes   113 Mbits/sec  216  
+[  4]  81.00-82.00  sec  13.9 MBytes   116 Mbits/sec  222  
+[  4]  82.00-83.00  sec  14.0 MBytes   117 Mbits/sec  224  
+[  4]  83.00-84.00  sec  13.2 MBytes   111 Mbits/sec  211  
+[  4]  84.00-85.00  sec  13.4 MBytes   113 Mbits/sec  215  
+[  4]  85.00-86.00  sec  14.2 MBytes   119 Mbits/sec  227  
+[  4]  86.00-87.00  sec  11.9 MBytes   100 Mbits/sec  191  
+[  4]  87.00-88.00  sec  12.0 MBytes   100 Mbits/sec  192  
+[  4]  88.00-89.00  sec  14.2 MBytes   119 Mbits/sec  227  
+[  4]  89.00-90.01  sec  14.1 MBytes   117 Mbits/sec  225  
+[  4]  90.01-91.00  sec  13.7 MBytes   116 Mbits/sec  220  
+[  4]  91.00-92.00  sec  13.2 MBytes   111 Mbits/sec  212  
+[  4]  92.00-93.01  sec  13.6 MBytes   113 Mbits/sec  218  
+[  4]  93.01-94.00  sec  14.1 MBytes   119 Mbits/sec  226  
+[  4]  94.00-95.00  sec  13.9 MBytes   116 Mbits/sec  222  
+[  4]  95.00-96.00  sec  13.2 MBytes   111 Mbits/sec  212  
+[  4]  96.00-97.00  sec  13.9 MBytes   117 Mbits/sec  223  
+[  4]  97.00-98.00  sec  13.8 MBytes   116 Mbits/sec  221  
+[  4]  98.00-99.00  sec  13.3 MBytes   112 Mbits/sec  213  
+[  4]  99.00-100.00 sec  14.1 MBytes   118 Mbits/sec  225  
+[  4] 100.00-101.01 sec  13.6 MBytes   113 Mbits/sec  217  
+[  4] 101.01-102.00 sec  13.8 MBytes   116 Mbits/sec  221  
+[  4] 102.00-103.00 sec  14.1 MBytes   119 Mbits/sec  226  
+[  4] 103.00-104.00 sec  13.8 MBytes   116 Mbits/sec  221  
+[  4] 104.00-105.00 sec  14.3 MBytes   120 Mbits/sec  229  
+[  4] 105.00-106.00 sec  13.7 MBytes   116 Mbits/sec  220  
+[  4] 106.00-107.01 sec  13.6 MBytes   113 Mbits/sec  217  
+[  4] 107.01-108.00 sec  13.4 MBytes   113 Mbits/sec  214  
+[  4] 108.00-109.01 sec  13.5 MBytes   113 Mbits/sec  216  
+[  4] 109.01-110.01 sec  13.8 MBytes   116 Mbits/sec  221  
+[  4] 110.01-111.00 sec  14.1 MBytes   118 Mbits/sec  225  
+[  4] 111.00-112.00 sec  13.7 MBytes   115 Mbits/sec  219  
+[  4] 112.00-113.00 sec  13.5 MBytes   113 Mbits/sec  216  
+[  4] 113.00-114.00 sec  12.8 MBytes   107 Mbits/sec  205  
+[  4] 114.00-115.00 sec  11.7 MBytes  98.3 Mbits/sec  187  
+[  4] 115.00-116.00 sec  12.9 MBytes   108 Mbits/sec  206  
+[  4] 116.00-117.00 sec  12.2 MBytes   103 Mbits/sec  196  
+[  4] 117.00-118.01 sec  13.8 MBytes   115 Mbits/sec  221  
+[  4] 118.01-119.00 sec  14.1 MBytes   119 Mbits/sec  226  
+[  4] 119.00-120.00 sec  13.6 MBytes   114 Mbits/sec  217  
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bandwidth       Jitter    Lost/Total Datagrams
+[  4]   0.00-120.00 sec  1.55 GBytes   111 Mbits/sec  4.319 ms  0/25380 (0%)  
+[  4] Sent 25380 datagrams
+
+iperf Done.
