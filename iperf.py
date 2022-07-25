@@ -21,5 +21,5 @@ file_path = os.path.join(log_dir_path, log_file_name)
 out = check_output(all_params).decode("utf-8")
 clean_out= out.replace('\r','').replace('\n','')
 
-with open(file_path, 'a') as f:
+with open(file_path, 'w') as f:
     f.write('{}\n'.format(clean_out))
