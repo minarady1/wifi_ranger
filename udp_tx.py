@@ -56,9 +56,9 @@ def send_udp(payload):
     sock.sendto(payload, (UDP_IP, UDP_PORT))
 
 
-
-
 print (USAGE)
+UDP_IP      = "localhost"
+UDP_PORT    = 6000
 
 if (len(sys.argv)>3):
     UDP_IP      = sys.argv[1]
@@ -70,14 +70,12 @@ else:
 
 starttime = time.time()
 
-
-UDP_IP      = "localhost"
-UDP_PORT    = 6000
 print ("UDP target IP: %s" % UDP_IP)
 print ("UDP target port: %s" % UDP_PORT)
 period = 1/FREQ
 start = time.time()
 now = start
+
 while (True):
     payload = preparePacket()
     send_udp(payload)

@@ -17,7 +17,7 @@ import pdb
 from sys import getsizeof
 import sys
 
-USAGE = "Usage: udp_rx.py <host IP> <port> <duration (s)> <exp ID> <run ID>"
+USAGE = "Usage: udp_rx.py <exp ID> <run ID> <host IP> <port> <duration (s)> "
 print (USAGE)
 
 # log settings
@@ -74,7 +74,7 @@ def process_payload(data):
   
     
     frame_len       = getsizeof(data) 
-    print(seqnum,frame_len, "delay", (time.time_ns()-timestamp_ns)/10**9)
+    print(seqnum,frame_len, "delay", (time.time_ns()-timestamp_ns)/10**6, "ms")
     res = {
         "src_timestamp_ns"  : timestamp_ns,
         "seqnum"            : seqnum,
