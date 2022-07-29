@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 import json
 import sys
 
-expid = "loc1_24GHz_20MHz_ax"
-runid = "run1"
+expid = "n_5ghz"
+runid = "run4"
 if len (sys.argv)>1:
     expid = sys.argv[1]
     runid = sys.argv[2]
@@ -24,39 +24,43 @@ data=[]
 
 streamfiles = [
     "../logs/{}/{}_{}_tcpstreamsingleUL.json".format(runid,expid,runid),
+    "../logs/{}/{}_{}_tcpstreamUL.json".format(runid,expid,runid),    
     "../logs/{}/{}_{}_tcpstreamDL.json".format(runid,expid,runid),
-    "../logs/{}/{}_{}_tcpstreamUL.json".format(runid,expid,runid),
     "../logs/{}/{}_{}_tcpstreamUDPDL.json".format(runid,expid,runid),
     "../logs/{}/{}_{}_tcpstreamULUDP.json".format(runid,expid,runid),
     
-    "../logs/{}/{}_{}_udpstreamsingleUL.json".format(runid,expid,runid),
-    "../logs/{}/{}_{}_udpstreamsingleUL_server.json".format(runid,expid,runid),
-    "../logs/{}/{}_{}_udpstreamDL.json".format(runid,expid,runid),
-    "../logs/{}/{}_{}_udpstreamUL.json".format(runid,expid,runid),
-    "../logs/{}/{}_{}_udpstream_TCPDL.json".format(runid,expid,runid),
-    "../logs/{}/{}_{}_udpstream_DLTCP.json".format(runid,expid,runid),
+    # "../logs/{}/{}_{}_udpstreamsingleUL.json".format(runid,expid,runid),
+    # "../logs/{}/{}_{}_udpstreamsingleUL_server.json".format(runid,expid,runid),
+    # "../logs/{}/{}_{}_udpstreamUL.json".format(runid,expid,runid),
+    # "../logs/{}/{}_{}_udpstreamUL_server.json".format(runid,expid,runid),    
+    # "../logs/{}/{}_{}_udpstreamDL.json".format(runid,expid,runid),
+    # "../logs/{}/{}_{}_udpstream_TCPDL.json".format(runid,expid,runid),
+    # "../logs/{}/{}_{}_udpstream_TCPDL_server.json".format(runid,expid,runid),
+    # "../logs/{}/{}_{}_udpstream_DLTCP.json".format(runid,expid,runid),
          ]
 
 controlfiles = [
     "../logs/{}/log_{}_{}_control_withTCPUL.jsonl".format(runid,expid,runid),
     "../logs/{}/log_{}_{}_control_withTCPULDL.jsonl".format(runid,expid,runid),
     "../logs/{}/log_{}_{}_control_withTCPULUDPDL.jsonl".format(runid,expid,runid),
-    "../logs/{}/log_{}_{}_control_withUDPUL.jsonl".format(runid,expid,runid),
-    "../logs/{}/log_{}_{}_control_withUDPULDL.jsonl".format(runid,expid,runid),
-    "../logs/{}/log_{}_{}_control_withUDPULTCPDL.jsonl".format(runid,expid,runid),
+    # "../logs/{}/log_{}_{}_control_withUDPUL.jsonl".format(runid,expid,runid),
+    # "../logs/{}/log_{}_{}_control_withUDPULDL.jsonl".format(runid,expid,runid),
+    # "../logs/{}/log_{}_{}_control_withUDPULTCPDL.jsonl".format(runid,expid,runid),
          ]
 exp_labels_streaming = ["TCP  UL",  
+              "TCP UL (w/DL)",          
               "TCP DL (w/UL)",  
-              "TCP UL (w/DL)",
-              "TCP  UL w/TCP DL", 
+              "TCP  UL w/UDP DL", 
               "UDP DL (w/ TCP UL)", 
               
-              "UDP  UL",  
-              "UDP  UL (Rx)",
-              "UDP DL (w/UL)",  
-              "UDP UL (w/DL)",
-              "UDP UL (w/ TCP DL)", 
-              "TCP DL (w/ UDP UL)",  
+              # "UDP  UL",  
+              # "UDP  UL (Rx)",
+              # "UDP UL (w/DL)",
+              # "UDP UL (w/DL) Rx",
+              # "UDP DL (w/UL)",  
+              # "UDP UL (w/ TCP DL)", 
+              # "UDP UL (w/ TCP DL) Rx", 
+              # "TCP DL (w/ UDP UL)",  
               ]
 
 exp_labels_control = ["TCP  UL",  
@@ -64,9 +68,9 @@ exp_labels_control = ["TCP  UL",
               "TCP  UL/UDP DL", 
               "UDP DL (w/ TCP UL)", 
               
-              "UDP UL",  
-              "UDP UL/DL)",  
-              "UDP UL (w/ TCP DL)", 
+              # "UDP UL",  
+              # "UDP UL/DL)",  
+              # "UDP UL (w/ TCP DL)", 
               ]
 
 for file in  streamfiles:
@@ -173,7 +177,6 @@ def plotTimeseries (data, time, labels, xlimit, ylabel, tag , ylimit=None, step 
     # plot:
     plt.figure(figsize=(12, 8))
     i = 0
-    print (i)
     while (i < len(data)):
         plt.plot(time [0][0:xlimit], data [i][0:xlimit], linewidth=3, label = labels [i])
         i =i+1
@@ -188,9 +191,13 @@ def plotTimeseries (data, time, labels, xlimit, ylabel, tag , ylimit=None, step 
     #plt.show()
 
 
-plotViolin(throughput_all, exp_labels_streaming, 30,  'Throughput (Mbps)',  "{}_{}_thoughput_violin.png".format (expid, runid))
+plotViolin(throughput_all, exp_labels_streaming, 30,  'Throughput (Mbps)',  "{}_{}_throughput_violin".format (expid, runid))
 
 plotTimeseries(throughput_all, streaming_time_all, exp_labels_streaming, 30,  'Throughput (Mbps)',  "{}_{}_throughput_time".format (expid, runid))
 
-plotTimeseries(delay_all, control_time_all, exp_labels_control, 30,  'Delay (ms)',  "{}_{}_delay_time".format (expid, runid))
+#plotTimeseries(delay_all, control_time_all, exp_labels_control, 30,  'Delay (ms)',  "{}_{}_delay_time".format (expid, runid))
 
+plotTimeseries(loss_all, control_time_all, exp_labels_control, 30,  'loss',  "{}_{}_loss_time".format (expid, runid))
+
+print ("Done.")
+sys.exit()
