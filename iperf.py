@@ -11,6 +11,8 @@ expID = sys.argv[1]
 runID = sys.argv[2]
 params = sys.argv[3] 
 all_params = params.split()
+all_params.append("-T")
+all_params.append("{}_{}".format(expID,runID))
 print (all_params)
 log_dir_path = os.path.join(os.path.dirname(__file__), "logs")
 log_file_name = "{}_{}.json".format(expID,runID)
