@@ -26,11 +26,11 @@ start = time.time()
 counter = 1
 now = start
 while (now-start < DURATION):
-    print ((now-start )/10**6)
+    #print ((now-start )/10**6)
     log_file_name = "logs/{}_{}_{}_wifi.json".format(expID,runID, counter)
     counter =counter +1
     out = subprocess.run( ["WifiInfoView", "/DisplayMode", "1" ,"/sjson", log_file_name], shell=True, check=True, capture_output=True)
-    time.sleep(1)
+    time.sleep(20)
     now = time.time()
  
 print ("done, exiting  ...")

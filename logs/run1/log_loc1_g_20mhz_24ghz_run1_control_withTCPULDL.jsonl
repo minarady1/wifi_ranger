@@ -1,0 +1,10 @@
+{"datetime": "2022-08-01 17:30:10.070906", "timestamp": 1659367810070906300, "payload": {"src_timestamp_ns": 1659367812883098125, "seqnum": 1224, "packet_size": 0, "freq": 0, "frame_len": 193}}
+{"datetime": "2022-08-01 17:30:11.070676", "timestamp": 1659367811070676400, "payload": {"src_timestamp_ns": 1659367813882759352, "seqnum": 1225, "packet_size": 0, "freq": 0, "frame_len": 193}}
+{"datetime": "2022-08-01 17:30:13.068355", "timestamp": 1659367813068355100, "payload": {"src_timestamp_ns": 1659367815883101419, "seqnum": 1227, "packet_size": 0, "freq": 0, "frame_len": 193}}
+{"datetime": "2022-08-01 17:30:14.066331", "timestamp": 1659367814066331500, "payload": {"src_timestamp_ns": 1659367816883075831, "seqnum": 1228, "packet_size": 0, "freq": 0, "frame_len": 193}}
+{"datetime": "2022-08-01 17:30:15.072075", "timestamp": 1659367815072075700, "payload": {"src_timestamp_ns": 1659367817883060203, "seqnum": 1229, "packet_size": 0, "freq": 0, "frame_len": 193}}
+{"datetime": "2022-08-01 17:30:16.071840", "timestamp": 1659367816071840600, "payload": {"src_timestamp_ns": 1659367818883086904, "seqnum": 1230, "packet_size": 0, "freq": 0, "frame_len": 193}}
+{"datetime": "2022-08-01 17:30:17.063257", "timestamp": 1659367817063257400, "payload": {"src_timestamp_ns": 1659367819883082512, "seqnum": 1231, "packet_size": 0, "freq": 0, "frame_len": 193}}
+{"datetime": "2022-08-01 17:30:18.063017", "timestamp": 1659367818063017700, "payload": {"src_timestamp_ns": 1659367820882686758, "seqnum": 1232, "packet_size": 0, "freq": 0, "frame_len": 193}}
+{"datetime": "2022-08-01 17:30:19.071305", "timestamp": 1659367819071305200, "payload": {"src_timestamp_ns": 1659367821882667250, "seqnum": 1233, "packet_size": 0, "freq": 0, "frame_len": 193}}
+{"datetime": "2022-08-01 17:30:20.072473", "timestamp": 1659367820072473900, "payload": {"src_timestamp_ns": 1659367822883069690, "seqnum": 1234, "packet_size": 0, "freq": 0, "frame_len": 193}}

@@ -71,6 +71,7 @@ def process_payload(data):
     seqnum          = int.from_bytes(data [80:160] , "big")
     packet_size	    = int.from_bytes(data [160:170] , "big")
     freq	        = int.from_bytes(data [170:180] , "big")
+
   
     
     frame_len       = getsizeof(data) 
@@ -88,6 +89,7 @@ def process_payload(data):
 def log_data (data):
     global log_file_path
     ts = datetime.datetime.now()
+    print (ts)
     #pdb.set_trace()
     payload_js = process_payload(data)
     with open(log_file_path, 'a') as f:
