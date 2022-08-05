@@ -17,6 +17,7 @@ import pdb
 import pandas as pd
 import os
 
+duration = 180 #s 
 expid = "loc1_n_20mhz_24ghz"
 runid = "run6"
 if len (sys.argv)>1:
@@ -136,11 +137,7 @@ def collectPhyData (grouping, filter_params):
     phy_files = os.listdir(phy_dir)
     phy_df = pd.DataFrame(columns = ['timestamp', 'txrate', 'rxrate',
                              'rssi', 'mode'])
-    phy_files = []
-    phy_dir = "../logs/{}/phy/".format(runid)
-    phy_files = os.listdir(phy_dir)
-    phy_df = pd.DataFrame(columns = ['timestamp', 'timestamp_ns', 'txrate', 'rxrate',
-                             'rssi', 'mode'])
+
     for file in  phy_files:
         # print (file)
         f = open(phy_dir+file)
@@ -160,32 +157,43 @@ def collectPhyData (grouping, filter_params):
                        'rssi': rssi,
                        'mode': mode}, ignore_index = True)
         f.close()
-    print (phy_df)
 
 throughput_all = []
 streaming_time_all  = []
+phy_time_all  = []
 pdr_all = []
 pdr_labels = []
 json_objects_data = []
 data=[]
 phy_df = pd.DataFrame()
-control_time_all  = []
 time  = []
-delay_all = []
-loss_all = []
+txrate_all = []
+rxrate_all = [] 
+mode_all  = []
+rssi_all = []
 
 def reset():
     global throughput_all
     global streaming_time_all  
+    global phy_time_all 
     global pdr_all 
     global pdr_labels 
     global json_objects_data
     global data
     global labels
-
+    global txrate_all
+    global rxrate_all
+    global mode_all
+    global rssi_all
+    
     throughput_all = []
     streaming_time_all  = []
+    phy_time_all  = []
     pdr_all = []
+    txrate_all = []
+    rxrate_all = [] 
+    mode_all  = []
+    rssi_all = []
     pdr_labels= []
     json_objects_data = []
     data=[]
@@ -196,7 +204,15 @@ def processData ():
     global json_objects_data
     global throughput_all 
     global streaming_time_all  
+    global phy_time_all
     global pdr_all 
+    global duration
+    global phy_df
+    global txrate_all
+    global rxrate_all
+    global rssi_all
+    global mode_all
+    
     throughput = []
     c = 0
     for exp in json_objects_data:
@@ -204,6 +220,21 @@ def processData ():
         throughput = []
         pdr = []
         hasPDR = False
+        ts_start = exp['start']['timestamp']['timesecs']
+        ts_end = ts_start+duration
+        res = phy_df.query("{}< timestamp <{}".format(ts_start, ts_end))
+        
+        phy_time = res ["timestamp"].tolist()
+        st = phy_time[0]
+        interval = phy_time[1] - phy_time[0]
+        
+        # shift the timestamps to end of the interval window
+        phy_time = [(x - st + interval) for x in phy_time]
+        txrate = res ["txrate"].tolist()
+        rxrate = res ["rxrate"].tolist()
+        rssi   = res ["rssi"].tolist()
+        mode   = res ["mode"].tolist()
+        
         for i in exp['intervals']:
             time.append (i ['sum']['start'])
             throughput.append (i ['sum']['bits_per_second']/ 10**6)
@@ -214,8 +245,15 @@ def processData ():
         if (hasPDR):
             pdr_labels.append(labels[c])
         c= c+1
+        
         streaming_time_all.append(time)
+        phy_time_all.append (phy_time)
         throughput_all.append(throughput)
+        txrate_all.append(txrate)
+        rxrate_all.append(rxrate)
+        rssi_all.append(rssi)
+        mode_all.append(mode)
+        
         if (len(pdr)>0):
             pdr_all.append(pdr)
 
@@ -287,7 +325,7 @@ def plotTimeseries (data, time, labels, xlimit, ylabel, tag , ylimit=None, step 
     plt.figure(figsize=(12, 8))
     i = 0
     while (i < len(data)):
-        plt.plot(time [0][0:xlimit], data [i][0:xlimit], linewidth=3, label = labels [i])
+        plt.plot(time [i][0:xlimit], data [i][0:xlimit], linewidth=3, label = labels [i])
         i =i+1
     
     plt.tight_layout()
@@ -301,24 +339,36 @@ def plotTimeseries (data, time, labels, xlimit, ylabel, tag , ylimit=None, step 
 
 
 def plot(groupby, filter_params):
+    global duration
     reset()
-    collectStreamData(groupby, filter_params)
     collectPhyData(groupby, filter_params)
+    collectStreamData(groupby, filter_params)
     processData()
     
-    # plotViolin(throughput_all, labels, 180,  
-    #           'Throughput (Mbps)', 
-    #           filter_params["tag"]+"_throughput")
-    plotBox(throughput_all, labels, 180,  
+
+    plotBox(throughput_all, labels, duration,  
                'Throughput (Mbps)', 
                filter_params["tag"]+"_throughput")
-    plotTimeseries(throughput_all, streaming_time_all, labels, 180, 
-                  'Throughput (Mbps)', 
-                  filter_params["tag"]+"_throughput")
+    
+    
+
+    plotTimeseries(txrate_all, phy_time_all, labels, duration, 
+                  'Bitrate (Mbps)', 
+                  filter_params["tag"]+"_txrate")
+    
+    
+    plotTimeseries(rxrate_all, phy_time_all, labels, duration, 
+              'Bitrate (Mbps)', 
+              filter_params["tag"]+"_rxrate")
+    
+    
+    plotTimeseries(rssi_all, phy_time_all, labels, duration, 
+          'Bitrate (Mbps)', 
+          filter_params["tag"]+"_rssi")
+    
     
     if (len(pdr_all)>0):
-        # plotViolin(pdr_all, pdr_labels, 180,  'PDR (%)',  filter_params["tag"]+ "_pdr")
-        plotBox(pdr_all, pdr_labels, 180,  'PDR (%)',  filter_params["tag"]+ "_pdr")
+        plotBox(pdr_all, pdr_labels, duration,  'PDR (%)',  filter_params["tag"]+ "_pdr")
 
 # phy_stream_config
 # phy_stream 
