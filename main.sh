@@ -2,20 +2,20 @@
 set -x
 date 
 
-# # =============================================================================
+# =============================================================================
 
-# echo "testing AX 20 MHz @ 24  GHz"
+echo "testing AX 20 MHz @ 24  GHz"
 
-# powershell -File config_switch.ps1 63 "INSA DLINK 2.4GHz"
-# sleep 20
+powershell -File config_switch.ps1 63 "INSA DLINK 2.4GHz"
+sleep 20
 
-# echo "start"
-# ./run.sh $1"_ax_20mhz_24ghz" $2 $3 1800M
-# echo "end"
+echo "start"
+./run.sh $1"_ax_20mhz_24ghz" $2 $3 1800M
+echo "end"
 
-# wait
+wait
 
-# # =============================================================================
+# =============================================================================
 
 echo "testing AX 20 MHz @ 5   GHz"
 
@@ -31,44 +31,44 @@ wait
 
 # =============================================================================
 
-# echo "testing AC 20 MHz @ 5   GHz"
+echo "testing AC 20 MHz @ 5   GHz"
 
-# powershell -File config_switch.ps1 26 "INSA DLINK 5GHz"
-# sleep 20
+powershell -File config_switch.ps1 26 "INSA DLINK 5GHz"
+sleep 20
 
-# echo "start"
-# ./run.sh $1"_ac_20mhz_5ghz" $2 $3 1000M
-# echo "end"
+echo "start"
+./run.sh $1"_ac_20mhz_5ghz" $2 $3 1000M
+echo "end"
 
-# wait
+wait
 
-# # =============================================================================
+# =============================================================================
 
-# echo "testing N  20 MHz @ 2.4 GHz"
+echo "testing N  20 MHz @ 2.4 GHz"
 
-# powershell -File config_switch.ps1 13 "INSA DLINK 2.4GHz"
-# sleep 20
+powershell -File config_switch.ps1 13 "INSA DLINK 2.4GHz"
+sleep 20
 
-# echo "start"
-# ./run.sh $1"_n_20mhz_24ghz" $2 $3 1000M
-# echo "end"
+echo "start"
+./run.sh $1"_n_20mhz_24ghz" $2 $3 1000M
+echo "end"
 
-# wait
+wait
 
-# # =============================================================================
+# =============================================================================
 
-# echo "testing N  20 MHz @ 5   GHz"
+echo "testing N  20 MHz @ 5   GHz"
 
-# powershell -File config_switch.ps1 10 "INSA DLINK 5GHz"
-# sleep 20
+powershell -File config_switch.ps1 10 "INSA DLINK 5GHz"
+sleep 20
 
-# echo "start"
-# ./run.sh $1"_n_20mhz_5ghz" $2 $3 1000M
-# echo "end"
+echo "start"
+./run.sh $1"_n_20mhz_5ghz" $2 $3 1000M
+echo "end"
 
-# wait
+wait
 
-# # =============================================================================
+# =============================================================================
 
 # echo "testing G  20 MHz @ 2.4 GHz"
 
@@ -82,7 +82,7 @@ wait
 
 # wait
 
-# # =============================================================================
+# =============================================================================
 
 # echo "testing A  20 MHz @ 5 GHz"
 
@@ -91,12 +91,12 @@ wait
 # sleep 20
 
 # echo "start"
-# ./run.sh $1"_a_20mhz_24ghz" $2 $3 25M
+# ./run.sh $1"_a_20mhz_5ghz" $2 $3 25M
 # echo "end"
 
 # wait
 
-# # =============================================================================
+# =============================================================================
 
 # echo "testing B  20 MHz @ 2.4 GHz"
 
