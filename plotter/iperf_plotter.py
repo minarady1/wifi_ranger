@@ -15,6 +15,7 @@ import json
 import sys
 import pdb
 import pandas as pd
+import os
 
 expid = "loc1_n_20mhz_24ghz"
 runid = "run6"
@@ -22,10 +23,7 @@ if len (sys.argv)>1:
     expid = sys.argv[1]
     runid = sys.argv[2]
 
-controlfiles = [
-    "../logs/{}/log_{}_{}_control_withTCPUL.jsonl".format(runid,expid,runid),
-    "../logs/{}/log_{}_{}_control_withTCPULDL.jsonl".format(runid,expid,runid),
-         ]
+
 labels = [] 
 
 exp_labels_streaming_pdr = [
@@ -83,12 +81,16 @@ phy_configs = [
 locations= ["loc1"]
 
 def collectStreamData (grouping, filter_params):
-    files = []
     global runid
     global stream_configs
     global phy_configs
     global json_objects_data
     global labels
+    global phy_df
+    
+    files = []
+    
+    
     if (grouping == "phy_stream_config"):
         i = 0
         for config in stream_configs:
@@ -118,25 +120,47 @@ def collectStreamData (grouping, filter_params):
 
     for file in  files:
         f = open(file)
-        print (file)
         line = f.readline()
         if line:
             json_objects_data.append(json.loads(line))
         f.close()
+    
     return json_objects_data
 
-# process manual control files    
-# for file in controlfiles:
-#     f = open(file)
-#     file_json_array=[]
-#     while True:
-#         line = f.readline()
-#         if not line:
-#             break
-#         if line:
-#             file_json_array.append(json.loads(line))
-#     json_objects_control.append(file_json_array)
-#     f.close()
+def collectPhyData (grouping, filter_params):
+    global runid
+    global phy_df
+    
+    phy_files = []
+    phy_dir = "../logs/{}/phy/".format(runid)
+    phy_files = os.listdir(phy_dir)
+    phy_df = pd.DataFrame(columns = ['timestamp', 'txrate', 'rxrate',
+                             'rssi', 'mode'])
+    phy_files = []
+    phy_dir = "../logs/{}/phy/".format(runid)
+    phy_files = os.listdir(phy_dir)
+    phy_df = pd.DataFrame(columns = ['timestamp', 'timestamp_ns', 'txrate', 'rxrate',
+                             'rssi', 'mode'])
+    for file in  phy_files:
+        # print (file)
+        f = open(phy_dir+file)
+        line = f.read ()
+        if line:
+            # print (line)
+            ts_string = file.replace(".htm","").replace("AutoSave_","")
+            vals = line.split("/")
+            txrate = int (vals [2].replace ("M",""))
+            rxrate = int (vals [3].replace ("M",""))
+            rssi   = int (vals [4]) *-1
+            mode   = vals [5]
+            phy_df = phy_df.append({'timestamp': int (ts_string[0:-3]),
+                       'timestamp_ns' : int (ts_string),
+                       'txrate' : txrate,
+                       'rxrate' : rxrate,
+                       'rssi': rssi,
+                       'mode': mode}, ignore_index = True)
+        f.close()
+    print (phy_df)
 
 throughput_all = []
 streaming_time_all  = []
@@ -144,7 +168,7 @@ pdr_all = []
 pdr_labels = []
 json_objects_data = []
 data=[]
-
+phy_df = pd.DataFrame()
 control_time_all  = []
 time  = []
 delay_all = []
@@ -194,31 +218,6 @@ def processData ():
         throughput_all.append(throughput)
         if (len(pdr)>0):
             pdr_all.append(pdr)
-        
-# for exp_array in json_objects_control:
-#     time  = []
-#     delay = []
-#     loss = []
-#     start_time = 0
-#     prev_seqnum = -1
-    
-#     for i in exp_array:
-#         delay.append(( i ["timestamp"]- i ["payload"] ["src_timestamp_ns"])/10**6)
-        
-#         if prev_seqnum == -1:
-#             loss.append(0)
-#             start_time = i ["timestamp"]
-#         else:
-#             loss.append(i ["payload"] ["seqnum"]-prev_seqnum-1)
-#         prev_seqnum = i ["payload"] ["seqnum"]            
-        
-#         time.append ((i ["timestamp"]-start_time)/10**9)
-       
-        
-#     control_time_all.append(time)
-#     delay_all.append(delay)
-#     loss_all.append(loss)
-
 
 def plotViolin (data, labels, xlimit, ylabel, tag , ylimit=None, step = None):
     # justifying the data
@@ -250,7 +249,6 @@ def plotViolin (data, labels, xlimit, ylabel, tag , ylimit=None, step = None):
     plt.title ("{} {}".format(tag,runid))
     plt.savefig(tag+"_violin.png", dpi=400, bbox_inches='tight', rotation = 90)
     
-    #plt.show()
 
 def plotBox (data, labels, xlimit, ylabel, tag , ylimit=None, step = None):
     # justifying the data
@@ -305,6 +303,7 @@ def plotTimeseries (data, time, labels, xlimit, ylabel, tag , ylimit=None, step 
 def plot(groupby, filter_params):
     reset()
     collectStreamData(groupby, filter_params)
+    collectPhyData(groupby, filter_params)
     processData()
     
     # plotViolin(throughput_all, labels, 180,  
