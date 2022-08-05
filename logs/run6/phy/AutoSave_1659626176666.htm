@@ -1,0 +1,90 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>DWL-X8630AP</title>
+<link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/css/w3.css">
+<link rel="stylesheet" href="/css/dlink-theme.css">
+<script language="Javascript" src="/public_tew.js"></script>
+<script language="Javascript" src="/js/md5.min.js"></script>
+<script type="text/javascript">
+	var submit_button_flag = true;
+
+	function clearAllCookies() {
+		var cookies = document.cookie.split(";");
+		for (var i = 0; i < cookies.length; i++) {
+			var cookie = cookies[i];
+			var eqPos = cookie.indexOf("=");
+			var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+			document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+		}
+	}
+
+	function checkCredentials()
+	{
+		var login_fail = "";
+		
+		if ( login_fail == "1"){
+			alert("Logon Failed: Incorrect username and/or password.");
+			window.document.location.href="/login.htm";
+		}else if (login_fail == "2"){
+			alert("Logon Failed: Maximum web sessions are currently active.");
+			window.document.location.href="/login.htm";
+		}else{
+			var url = document.URL;
+			var res = url.split("/");
+			var a=res[3];
+			if( a.trim() != "login.htm" && a.trim() != "") {
+				window.document.location.href="/login.htm";
+			}
+		}
+		document.getElementById("login_n").focus();
+	}
+	
+	function send_request()
+	{
+		if(submit_button_flag) {
+			document.cookie = "ID=" + "998151962" + "; path=/";
+			get_by_id("login_name").value = encode64(md5(get_by_id("login_n").value).toLowerCase());	//NO use in CGI
+			get_by_id("log_pass").value = encode64(md5(get_by_id("tmp_log_pass").value).toLowerCase());
+			submit_button_flag = false;
+		}
+		get_by_id("tmp_log_pass").value="";
+		get_by_id("login_n").value="";
+	}
+
+	clearAllCookies();
+</script>
+</head>
+
+<body class="w3-responsive" style="padding-top:15%; padding-left:10%; box-sizing:border-box;" onload='checkCredentials()'>
+	<form id="form1" name="form1" method="post" action="apply_sec.cgi">
+		<input type="hidden" id="html_response_page" name="html_response_page" value="login.htm">
+		<input type="hidden" id="login_name" name="login_name">
+		<input type="hidden" id="log_pass" name="log_pass">
+		<input type="hidden" id="action" name="action" value="do_login">
+		<div class="w3-row-padding" style="margin:3px;min-width:300px;">
+			<div class="w3-col" style="width:40%;text-align:right;">User Name </div>
+			<div class="w3-col" style="width:60%;">
+				<input type="text" id="login_n" name="login_n" value="" size="10">
+			</div>
+		</div>
+		<div class="w3-row-padding" style="margin: 3px;;min-width:300px;">
+			<div class="w3-col" style="width:40%;text-align:right;">Password </div>
+			<div class="w3-col" style="width:60%">
+				<input type="password" id="tmp_log_pass" name="tmp_log_pass" value="" size="10">
+			</div>
+		</div>
+		<div class="w3-row-padding" style="margin:3px;;min-width:300px;">
+			<div class="w3-col" style="width:40%;text-align:right;"><br>&emsp;</div>
+			<div class="w3-col" style="width:60%">
+				<br>
+				<input class="ButtonSmall" type="submit" id="login" onclick="send_request()" value="Logon">
+			</div>
+		</div>
+	</form>
+</body>
+<script type="text/javascript" language="javascript">
+	window.history.replaceState("", "", "/");
+</script>
+</html>
