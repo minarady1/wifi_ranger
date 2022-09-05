@@ -4,7 +4,7 @@ Plotting script for captured measurements
 
 PLotter v2.0
 
-Bugwright2 Prject
+Bugwright2 Project
 Mina Rady mina.rady@insa-lyon.fr
 
 '''
@@ -17,9 +17,9 @@ import pdb
 import pandas as pd
 import os
 
-duration = 180 #s 
-expid = "loc1_n_20mhz_24ghz"
-runid = "run6"
+duration = 300 #s 
+expid = "cortex"
+runid = "run8"
 if len (sys.argv)>1:
     expid = sys.argv[1]
     runid = sys.argv[2]
@@ -41,35 +41,59 @@ exp_labels_control = ["TCP  UL",
 
 stream_configs = [ 
     "tcp_single_UL",
+    "tcp_single_UL_server",
+    
     "tcp_single_DL",
+    "tcp_single_DL_server",
+    
+    "tcp_dual_UL",
+    "tcp_dual_UL_server",
+    
+    "tcp_dual_DL",
+    "tcp_dual_DL_server",
     
     "udp_single_UL",
     "udp_single_UL_server",
     
-    # "udp_single_UL_low",
-    # "udp_single_UL_low_server",
-    
     "udp_single_DL",
-    # "udp_single_DL_low",
+    "udp_single_DL_server",
+    
+    "udp_dual_UL",
+    "udp_dual_UL_server",
+    
+    "udp_dual_DL",
+    "udp_dual_DL_server",
 ]
 
 stream_labels = [
-              "TCP  UL",  
-              "TCP DL",     
-              
-              "UDP UL High",
-              "UDP UL High (Rx)",
-              
-              "UDP UL Low",
-              "UDP UL Low (Rx)",
-              
-              "UDP DL High",
-              "UDP DL Low",
+    "tcp_single_UL",
+    "tcp_single_UL_server",
+    
+    "tcp_single_DL",
+    "tcp_single_DL_server",
+    
+    "tcp_dual_UL",
+    "tcp_dual_UL_server",
+    
+    "tcp_dual_DL",
+    "tcp_dual_DL_server",
+    
+    "udp_single_UL",
+    "udp_single_UL_server",
+    
+    "udp_single_DL",
+    "udp_single_DL_server",
+    
+    "udp_dual_UL",
+    "udp_dual_UL_server",
+    
+    "udp_dual_DL",
+    "udp_dual_DL_server",
               ]
 
 phy_configs = [
-    "ax_80mhz_5ghz",
-    "ac_80mhz_5ghz",
+    # "ax_80mhz_5ghz",
+    # "ac_80mhz_5ghz",
     "ax_20mhz_5ghz",
     "ax_20mhz_24ghz",
     "ac_20mhz_5ghz",
@@ -79,8 +103,22 @@ phy_configs = [
     # "g_20mhz_24ghz",
     ]
 
-locations= ["loc1"]
+locations= ["cortex"]
 
+line_styles= [
+     '-',
+     '--',
+     '-',
+     '--',
+     '-',
+    ]
+marker_styles= [
+     'o',
+     's',
+     '+',
+     'x',
+     '_',
+    ]
 def collectStreamData (grouping, filter_params):
     global runid
     global stream_configs
@@ -163,6 +201,10 @@ streaming_time_all  = []
 phy_time_all  = []
 pdr_all = []
 pdr_labels = []
+tcp_labels = []
+retransmits_all = []
+rtt_all = []
+
 json_objects_data = []
 data=[]
 phy_df = pd.DataFrame()
@@ -178,6 +220,7 @@ def reset():
     global phy_time_all 
     global pdr_all 
     global pdr_labels 
+    global tcp_labels 
     global json_objects_data
     global data
     global labels
@@ -185,6 +228,8 @@ def reset():
     global rxrate_all
     global mode_all
     global rssi_all
+    global retransmits_all
+    global rtt_all
     
     throughput_all = []
     streaming_time_all  = []
@@ -195,9 +240,12 @@ def reset():
     mode_all  = []
     rssi_all = []
     pdr_labels= []
+    tcp_labels= []
     json_objects_data = []
     data=[]
     labels = []
+    retransmits_all = []
+    rtt_all = []
     
 
 def processData ():
@@ -212,14 +260,19 @@ def processData ():
     global rxrate_all
     global rssi_all
     global mode_all
+    global retransmits_all
+    global rtt_all
     
-    throughput = []
+    
     c = 0
     for exp in json_objects_data:
         time  = []
         throughput = []
+        retransmits = []
+        rtt = []
         pdr = []
-        hasPDR = False
+        isUDP = False
+        isTCP  = False
         ts_start = exp['start']['timestamp']['timesecs']
         ts_end = ts_start+duration
         res = phy_df.query("{}< timestamp <{}".format(ts_start, ts_end))
@@ -234,17 +287,20 @@ def processData ():
         rxrate = res ["rxrate"].tolist()
         rssi   = res ["rssi"].tolist()
         mode   = res ["mode"].tolist()
+        print (">>", labels[c], set(mode) )
         
         for i in exp['intervals']:
             time.append (i ['sum']['start'])
             throughput.append (i ['sum']['bits_per_second']/ 10**6)
+            if "retransmits" in i ['sum']:
+                isTCP = True
+                retransmits.append(i ['sum']['retransmits'])
+                rtt.append (i['streams'][0]['rtt'])
+            
             if "lost_percent" in i ['sum']:
-                hasPDR = True
+                isUDP = True
                 pdr.append(100 - i ['sum']['lost_percent'])
         
-        if (hasPDR):
-            pdr_labels.append(labels[c])
-        c= c+1
         
         streaming_time_all.append(time)
         phy_time_all.append (phy_time)
@@ -253,10 +309,17 @@ def processData ():
         rxrate_all.append(rxrate)
         rssi_all.append(rssi)
         mode_all.append(mode)
-        
-        if (len(pdr)>0):
-            pdr_all.append(pdr)
 
+        if (isUDP):
+            pdr_labels.append(labels[c])
+            pdr_all.append(pdr)
+        
+        if (isTCP):
+            tcp_labels.append(labels[c])
+            retransmits_all.append(retransmits)
+            rtt_all.append(rtt)
+        c= c+1
+            
 def plotViolin (data, labels, xlimit, ylabel, tag , ylimit=None, step = None):
     # justifying the data
     i =0
@@ -323,6 +386,7 @@ def plotTimeseries (data, time, labels, xlimit, ylabel, tag , ylimit=None, step 
     
     # plot:
     plt.figure(figsize=(12, 8))
+    
     i = 0
     while (i < len(data)):
         plt.plot(time [i][0:xlimit], data [i][0:xlimit], linewidth=3, label = labels [i])
@@ -337,7 +401,48 @@ def plotTimeseries (data, time, labels, xlimit, ylabel, tag , ylimit=None, step 
     
     #plt.show()
 
+def plotCDF (data, labels, xlimit, ylabel, tag , ylimit=None, step = None):
+    
+    plt.figure(figsize=(12, 8))
+    
+    i = 0
+    while (i < len(data)):
+        count, bins_count = np.histogram(data [i][0:xlimit], bins=30)
+        pdf = count / sum(count)
+        cdf = np.cumsum(pdf)
+        plt.plot(bins_count[1:],cdf,label= labels [i],
+                 linestyle= line_styles[i], marker = marker_styles[i])
+        i =i+1
+    
+    plt.tight_layout()
+    plt.xlabel(ylabel)
+    plt.ylabel("CDF")
+    plt.legend()
+    plt.grid(True)
+    plt.title ("{} {}".format(tag,runid))
+    plt.savefig(tag+"_cdf.png", dpi=300, bbox_inches='tight')
 
+def plotPDF (data, labels, xlimit, ylabel, tag , ylimit=None, step = None):
+    
+    plt.figure(figsize=(12, 8))
+    fig, ax = plt.subplots()
+    i = 0
+    width = 1
+    while (i < len(data)):
+        count, bins_count = np.histogram(data [i][0:xlimit], bins=10)
+        pdf = count / sum(count)
+        ax.bar(bins_count[1:],pdf,label= labels [i],width = width*i)
+        i =i+1
+    
+    
+    plt.xlabel(ylabel)
+    plt.ylabel("PDF")
+    plt.legend()
+    plt.grid(True)
+    plt.title ("{} {}".format(tag,runid))
+    plt.tight_layout()
+    plt.savefig(tag+"_pdf.png", dpi=300, bbox_inches='tight')
+    
 def plot(groupby, filter_params):
     global duration
     reset()
@@ -346,46 +451,68 @@ def plot(groupby, filter_params):
     processData()
     
 
-    plotBox(throughput_all, labels, duration,  
-               'Throughput (Mbps)', 
-               filter_params["tag"]+"_throughput")
-    
-    
+    # plotBox(throughput_all, labels, duration,  
+    #            'Throughput (Mbps)', 
+    #            filter_params["tag"]+"_throughput")
 
-    plotTimeseries(txrate_all, phy_time_all, labels, duration, 
-                  'Bitrate (Mbps)', 
-                  filter_params["tag"]+"_txrate")
-    
-    
-    plotTimeseries(rxrate_all, phy_time_all, labels, duration, 
-              'Bitrate (Mbps)', 
-              filter_params["tag"]+"_rxrate")
-    
-    
-    plotTimeseries(rssi_all, phy_time_all, labels, duration, 
-          'Bitrate (Mbps)', 
-          filter_params["tag"]+"_rssi")
-    
-    
-    if (len(pdr_all)>0):
-        plotBox(pdr_all, pdr_labels, duration,  'PDR (%)',  filter_params["tag"]+ "_pdr")
+    plotCDF(throughput_all, labels, duration,  
+                'Throughput (Mbps)', 
+                filter_params["tag"]+"_throughput")    
 
+    # plotTimeseries(txrate_all, phy_time_all, labels, duration, 
+    #               'Bitrate (Mbps)', 
+    #               filter_params["tag"]+"_txrate")
+    
+    # plotCDF(txrate_all, labels, duration, 
+    #               'Bitrate (Mbps)', 
+    #               filter_params["tag"]+"_txrate")    
+
+    # plotPDF(txrate_all, labels, duration, 
+    #               'Bitrate (Mbps)', 
+    #               filter_params["tag"]+"_txrate")    
+    
+    # plotTimeseries(rxrate_all, phy_time_all, labels, duration, 
+    #           'Bitrate (Mbps)', 
+    #           filter_params["tag"]+"_rxrate")
+    
+    
+    # plotTimeseries(rssi_all, phy_time_all, labels, duration, 
+    #       'RSSI (dBm)', 
+    #       filter_params["tag"]+"_rssi")
+    
+    # plotTimeseries(throughput_all, streaming_time_all, labels, duration,  
+    #            'Throughput (Mbps)', 
+    #            filter_params["tag"]+"_throughput")
+    
+    
+    
+    # if (len(pdr_all)>0):
+    #     plotBox(pdr_all, pdr_labels, duration,  'PDR (%)',  filter_params["tag"]+ "_pdr")
+
+    # if (len(retransmits_all)>0):
+    #     plotTimeseries(retransmits_all, streaming_time_all, tcp_labels, duration,  'Retries',  
+    #             filter_params["tag"]+ "_retries")
+    # if (len(rtt_all)>0):
+    #     plotTimeseries(rtt_all, streaming_time_all, tcp_labels, duration,  'RTT',  
+    #             filter_params["tag"]+ "_rtt")
 # phy_stream_config
 # phy_stream 
 
 # group by stream type
     
 i = 0
-j = 0
+
 
 while (i<len(locations)):
+    print (locations[i])
+    j = 0   
     while (j<len(stream_configs)):
         
         plot("stream_config", {"location":locations[i],
                                  "stream_config": stream_configs[j],
-                                 "tag": "{}_stream_{}_{}".format(locations[i],
-                                                                    stream_configs[j],
-                                                                    runid)})
+                                 "tag": "{}_stream_{}_{}".format(stream_configs[j],
+                                                                    runid,
+                                                                    locations[i])})
         j = j+1
     i=i+1
 # group by phy type
