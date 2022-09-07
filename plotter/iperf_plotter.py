@@ -92,8 +92,8 @@ stream_labels = [
               ]
 
 phy_configs = [
-    # "ax_80mhz_5ghz",
-    # "ac_80mhz_5ghz",
+    "ax_80mhz_5ghz",
+    "ac_80mhz_5ghz",
     "ax_20mhz_5ghz",
     "ax_20mhz_24ghz",
     "ac_20mhz_5ghz",
@@ -106,11 +106,13 @@ phy_configs = [
 locations= ["cortex"]
 
 line_styles= [
-     '-',
-     '--',
-     '-',
-     '--',
-     '-',
+     'dashed',
+     'dotted',
+     'dashed',
+     'dotted',
+     'dashed',
+     'dashdot',
+     'dashdot',
     ]
 marker_styles= [
      'o',
@@ -118,6 +120,8 @@ marker_styles= [
      '+',
      'x',
      '_',
+     'o',
+     's',
     ]
 def collectStreamData (grouping, filter_params):
     global runid
@@ -184,6 +188,8 @@ def collectPhyData (grouping, filter_params):
             # print (line)
             ts_string = file.replace(".htm","").replace("AutoSave_","")
             vals = line.split("/")
+            if (len(vals)<6):
+                break;
             txrate = int (vals [2].replace ("M",""))
             rxrate = int (vals [3].replace ("M",""))
             rssi   = int (vals [4]) *-1
@@ -431,7 +437,7 @@ def plotPDF (data, labels, xlimit, ylabel, tag , ylimit=None, step = None):
     while (i < len(data)):
         count, bins_count = np.histogram(data [i][0:xlimit], bins=10)
         pdf = count / sum(count)
-        ax.bar(bins_count[1:],pdf,label= labels [i],width = width*i)
+        ax.bar(bins_count[1:],pdf,label= labels [i])
         i =i+1
     
     
@@ -451,54 +457,51 @@ def plot(groupby, filter_params):
     processData()
     
 
-    # plotBox(throughput_all, labels, duration,  
-    #            'Throughput (Mbps)', 
-    #            filter_params["tag"]+"_throughput")
+    plotBox(throughput_all, labels, duration,  
+                'Throughput (Mbps)', 
+                filter_params["tag"]+"_throughput")
 
     plotCDF(throughput_all, labels, duration,  
                 'Throughput (Mbps)', 
                 filter_params["tag"]+"_throughput")    
 
-    # plotTimeseries(txrate_all, phy_time_all, labels, duration, 
-    #               'Bitrate (Mbps)', 
-    #               filter_params["tag"]+"_txrate")
+    plotTimeseries(txrate_all, phy_time_all, labels, duration, 
+                  'Bitrate (Mbps)', 
+                  filter_params["tag"]+"_txrate")
     
-    # plotCDF(txrate_all, labels, duration, 
-    #               'Bitrate (Mbps)', 
-    #               filter_params["tag"]+"_txrate")    
+    plotCDF(txrate_all, labels, duration, 
+                  'Bitrate (Mbps)', 
+                  filter_params["tag"]+"_txrate")    
 
-    # plotPDF(txrate_all, labels, duration, 
-    #               'Bitrate (Mbps)', 
-    #               filter_params["tag"]+"_txrate")    
+    plotPDF(txrate_all, labels, duration, 
+                  'Bitrate (Mbps)', 
+                  filter_params["tag"]+"_txrate")    
     
-    # plotTimeseries(rxrate_all, phy_time_all, labels, duration, 
-    #           'Bitrate (Mbps)', 
-    #           filter_params["tag"]+"_rxrate")
-    
-    
-    # plotTimeseries(rssi_all, phy_time_all, labels, duration, 
-    #       'RSSI (dBm)', 
-    #       filter_params["tag"]+"_rssi")
-    
-    # plotTimeseries(throughput_all, streaming_time_all, labels, duration,  
-    #            'Throughput (Mbps)', 
-    #            filter_params["tag"]+"_throughput")
+    plotTimeseries(rxrate_all, phy_time_all, labels, duration, 
+              'Bitrate (Mbps)', 
+              filter_params["tag"]+"_rxrate")
     
     
+    plotTimeseries(rssi_all, phy_time_all, labels, duration, 
+          'RSSI (dBm)', 
+          filter_params["tag"]+"_rssi")
     
-    # if (len(pdr_all)>0):
-    #     plotBox(pdr_all, pdr_labels, duration,  'PDR (%)',  filter_params["tag"]+ "_pdr")
+    plotTimeseries(throughput_all, streaming_time_all, labels, duration,  
+                'Throughput (Mbps)', 
+                filter_params["tag"]+"_throughput")
+    
+    
+    
+    if (len(pdr_all)>0):
+        plotBox(pdr_all, pdr_labels, duration,  'PDR (%)',  filter_params["tag"]+ "_pdr")
 
-    # if (len(retransmits_all)>0):
-    #     plotTimeseries(retransmits_all, streaming_time_all, tcp_labels, duration,  'Retries',  
-    #             filter_params["tag"]+ "_retries")
-    # if (len(rtt_all)>0):
-    #     plotTimeseries(rtt_all, streaming_time_all, tcp_labels, duration,  'RTT',  
-    #             filter_params["tag"]+ "_rtt")
-# phy_stream_config
-# phy_stream 
+    if (len(retransmits_all)>0):
+        plotPDF(retransmits_all, tcp_labels, duration,  'Retries',  
+                filter_params["tag"]+ "_retries")
+    if (len(rtt_all)>0):
+        plotTimeseries(rtt_all, streaming_time_all, tcp_labels, duration,  'RTT',  
+                filter_params["tag"]+ "_rtt")
 
-# group by stream type
     
 i = 0
 
