@@ -40,7 +40,12 @@ labels_phy = []
 
 locations= [
     "cortex",
-    "cortex_asus"]
+    "cortex_asus",
+    ]
+locations_labels= [
+    "TP-Link",
+    "Asus",
+    ]
 
 exp_labels_streaming_pdr = [
 
@@ -56,16 +61,16 @@ exp_labels_control = ["TCP  UL",
 
 stream_configs = [ 
     "tcp_single_UL",
-    # "tcp_single_UL_server",
+    "tcp_single_UL_server",
     
     "tcp_single_DL",
-    # "tcp_single_DL_server",
+    "tcp_single_DL_server",
     
     "tcp_dual_UL",
-    # "tcp_dual_UL_server",
+    "tcp_dual_UL_server",
     
     "tcp_dual_DL",
-    # "tcp_dual_DL_server",
+    "tcp_dual_DL_server",
     
     # "udp_single_UL",
     # "udp_single_UL_server",
@@ -82,16 +87,16 @@ stream_configs = [
 
 stream_labels = [
     "tcp_single_UL",
-    # "tcp_single_UL_server",
+    "tcp_single_UL_server",
     
     "tcp_single_DL",
-    # "tcp_single_DL_server",
+    "tcp_single_DL_server",
     
     "tcp_dual_UL",
-    # "tcp_dual_UL_server",
+    "tcp_dual_UL_server",
     
     "tcp_dual_DL",
-    # "tcp_dual_DL_server",
+    "tcp_dual_DL_server",
     
     # "udp_single_UL",
     # "udp_single_UL_server",
@@ -114,6 +119,7 @@ phy_configs = [
     "ac_20mhz_5ghz",
     "n_20mhz_5ghz",
     "n_20mhz_24ghz",
+    
     # "a_20mhz_5ghz", 
     # "g_20mhz_24ghz",
     ]
@@ -221,37 +227,28 @@ def collectStreamData (grouping, filter_params):
     
     return json_objects_data
 
-def collectPhyData (grouping, filter_params):
+def collectPhyData ():
     global runid
     global phy_df
     
-    phy_files = []
-    phy_dir = "../logs/{}/phy/".format(runid)
-    phy_files = os.listdir(phy_dir)
+    phy_dir = "../logs/{}/phy/phy_log.txt".format(runid)
     phy_df = pd.DataFrame(columns = ['timestamp', 'txrate', 'rxrate',
                              'rssi', 'mode'])
 
-    for file in  phy_files:
-        # print (file)
-        f = open(phy_dir+file)
-        line = f.read ()
+    # print (file)
+    f = open(phy_dir)
+    lines= f.readlines()
+    i = 0
+    for line in lines:        
         if line:
-            # print (line)
-            ts_string = file.replace(".htm","").replace("AutoSave_","")
-            vals = line.split("/")
-            if (len(vals)<6):
-                break;
-            txrate = int (vals [2].replace ("M",""))
-            rxrate = int (vals [3].replace ("M",""))
-            rssi   = int (vals [4]) *-1
-            mode   = vals [5]
-            phy_df = phy_df.append({'timestamp': int (ts_string[0:-3]),
-                       'timestamp_ns' : int (ts_string),
-                       'txrate' : txrate,
-                       'rxrate' : rxrate,
-                       'rssi': rssi,
-                       'mode': mode}, ignore_index = True)
-        f.close()
+            js = json.loads(line)
+            phy_df = phy_df.append({'timestamp': js["timestamp"],
+                       'txrate' : js["txrate"],
+                       'rxrate' : js["rxrate"],
+                       'rssi': js["rssi"],
+                       'mode': js["mode"]}, ignore_index = True)
+            i = i+1
+    f.close()
 
 
 def reset():
@@ -378,7 +375,7 @@ def processData (filter_params):
             if (labels_phy[c] in txrate_global.keys()):
                 txrate_global [labels_phy[c]].extend(txrate)
             else:
-                txrate_global[labels_phy[c]] = [txrate]
+                txrate_global[labels_phy[c]] = txrate
         c= c+1
             
 def plotViolin (data, labels, xlimit, ylabel, tag , ylimit=None, step = None):
@@ -454,17 +451,25 @@ def plotGlobal (data_dict, ylabel, tag ):
     # plot:
     
     for c in phy_configs:
+        i = 0
         for l in locations:
-            global_keys.append (c+"_"+l)
-            global_values.append (list(data_dict[l][c]))
+            global_keys.append ( c+"_"+locations_labels[i])
+            global_values.append ( list(data_dict[l][c]))
+            i=i+1
 
     df = pd.DataFrame(global_values, index=global_keys)
     fig, ax = plt.subplots()
     bp_dict = df.T.boxplot(vert=False, return_type='both', patch_artist = True)
     plt.subplots_adjust(left=0.25)
-
-    # bp_dict[1]["boxes"][0].set_facecolor("r")
     
+    i = 0
+    for box in bp_dict[1]["boxes"]:
+        box.set_facecolor("w")
+        if (i%2 ==0):
+            box.set_edgecolor("g")
+        else:
+            box.set_edgecolor("b")
+        i = i+1
     plt.ylabel('Configuration')
     plt.xlabel(ylabel)
     #ax.set_xticks(ticks)
@@ -540,14 +545,12 @@ def plot(groupby, filter_params):
     global duration
     reset()
     
-    if (phy_data_lookup):
-        collectPhyData(groupby, filter_params)
     collectStreamData(groupby, filter_params)
     processData(filter_params)
     
-    plotBox(throughput_all, labels, duration,  
-                'Throughput (Mbps)', 
-                filter_params["tag"]+"_throughput")
+    # plotBox(throughput_all, labels, duration,  
+    #             'Throughput (Mbps)', 
+    #             filter_params["tag"]+"_throughput")
 
     # plotCDF(throughput_all, labels, duration,  
     #             'Throughput (Mbps)', 
@@ -571,28 +574,31 @@ def plot(groupby, filter_params):
         #               'Bitrate (Mbps)', 
         #               filter_params["tag"]+"_txrate")    
         
-        # plotTimeseries(rxrate_all, phy_time_all, labels, duration, 
+        # plotCDF(rxrate_all, labels, duration, 
         #           'Bitrate (Mbps)', 
         #           filter_params["tag"]+"_rxrate")
     
     
-    # plotTimeseries(rssi_all, phy_time_all, labels, duration, 
+    # plotPDF(rssi_all, labels, duration, 
     #       'RSSI (dBm)', 
     #       filter_params["tag"]+"_rssi")
            
         
     # if (len(pdr_all)>0):
-        # plotBox(pdr_all, pdr_labels, duration,  'PDR (%)',  filter_params["tag"]+ "_pdr")
+    #     plotBox(pdr_all, pdr_labels, duration,  'PDR (%)',  filter_params["tag"]+ "_pdr")
 
     # if (len(retransmits_all)>0):
-    #     plotPDF(retransmits_all, tcp_labels, duration,  'Retries',  
+    #     plotCDF(retransmits_all, tcp_labels, duration,  'Retries',  
     #             filter_params["tag"]+ "_retries")
     # if (len(rtt_all)>0):
     #     plotCDF(rtt_all, tcp_labels, duration,  'RTT',  
     #             filter_params["tag"]+ "_rtt")
     
 
+if (phy_data_lookup):
+    collectPhyData()
 
+    
 i = 0
 while (i<len(locations)):
     print (locations[i])
@@ -613,7 +619,9 @@ while (i<len(locations)):
 # all
 
 plotGlobal(throughput_90th_all,"Mbps", "throughput_90th")
-
+# same for retries
+# same for tx/rx rate
+    
 # plotGlobal(pdr_90th_all,"%", "pdr_90th")
 
 # plotGlobal(txrate_global,"Mbps", "txrate_global")
